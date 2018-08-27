@@ -17,4 +17,10 @@ exports.deleteQuestion = (req,res)=>{
     res.json({'message': 'delete question'});
 };
 
+exports.postQuestion = (req,res)=>{
+    res.json({'message': 'ask question'});
+};
+
+
+
 
