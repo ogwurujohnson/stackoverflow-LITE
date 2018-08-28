@@ -13,4 +13,7 @@ router.get('/:username/questions', userController.getUserQuestions);
 router.get('/:username/questions/:q_id', userController.getUserSingleQuestion);
 
 
+//user answer routes
+
+
 module.exports = router;
