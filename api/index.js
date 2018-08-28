@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const questionRouter = require('./routes/question');
+const userRouter = require('./routes/user');
 
 
 /**
@@ -20,7 +21,8 @@ app.get('/v1',(req,res)=>{
     res.send('Welcome Boy');
 });
 
-app.use('/v1/question',questionRouter);
+app.use('/v1/questions',questionRouter);
+app.use('/v1/users', userRouter);
 
 const port = process.env.port || 3000;
 const host = '127.0.0.1';
