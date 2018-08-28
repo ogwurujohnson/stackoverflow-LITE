@@ -7,6 +7,7 @@ const questionController = require('../controllers/question');
  */
 
 router.get('/', questionController.getAllQuestions);
+
 router.get('/:id', questionController.getSingleQuestion);
 router.get('/edit/:id',questionController.editQuestion);
 
@@ -14,7 +15,13 @@ router.get('/edit/:id',questionController.editQuestion);
  * * POST routes**
  */
 
-router.post('/delete/:id', questionController.deleteQuestion);
-router.post('/edit/:id',questionController.editQuestion);
+router.post('/', questionController.postQuestion);
+
+
+/**
+ * *PUT and DELETE routes**
+ */
+router.delete('/delete/:id', questionController.deleteQuestion);
+router.put('/edit/:id',questionController.editQuestion);
 
 module.exports = router;
