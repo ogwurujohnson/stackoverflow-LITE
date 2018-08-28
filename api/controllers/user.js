@@ -1,4 +1,12 @@
 const bodyParser = require('body-parser');
+//users controller
+exports.getAllUsers = (req,res)=>{
+    res.json({'message': 'All Users'});
+};
+
+exports.getUserDetails = (req,res)=>{
+    res.json({'message': 'Logged User details'});
+};
 
 
 //users question controller
