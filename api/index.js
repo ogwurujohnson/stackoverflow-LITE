@@ -6,13 +6,21 @@ const app = express();
 const questionRouter = require('./routes/question');
 
 
+/**
+ * ?HINT: For other versions make sure you to uncomment the following code
+ * const version-n = require('location of the version-n index.js file');
+ * app.use('/v2', version-n);
+ * the code in the version-n index.js takes over
+ */
+
+ 
 
 
-app.get('/',(req,res)=>{
+app.get('/v1',(req,res)=>{
     res.send('Welcome Boy');
 });
 
-app.use('/question',questionRouter);
+app.use('/v1/question',questionRouter);
 
 const port = process.env.port || 3000;
 const host = '127.0.0.1';
