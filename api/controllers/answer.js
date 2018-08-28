@@ -1,7 +1,7 @@
 const bodyParser = require('body-parser');
 
 exports.postAnswer = (req,res)=>{
-    res.json({'message': 'posted question'});
+    res.json({'message': 'posted answer'});
 };
 
 exports.getQuestionAnswers = (req,res)=>{
