@@ -1,4 +1,5 @@
 const express = require('express');
+
 const router = express.Router();
 const questionController = require('../controllers/question');
 const answerController = require('../controllers/answer');
@@ -11,7 +12,6 @@ const answerController = require('../controllers/answer');
 /**
  * * GET routes**
  */
- 
 
 /**
  * Routes to handle Questions
@@ -22,29 +22,24 @@ router.post('/', questionController.postQuestion);
 router.get('/:q_id', questionController.getSingleQuestion);
 router.delete('/:q_id/delete', questionController.deleteQuestion);
 
-router.get('/:q_id/edit',questionController.editQuestion);
-router.put('/:q_id/edit',questionController.editQuestion);
-
-
-
+router.get('/:q_id/edit', questionController.editQuestion);
+router.put('/:q_id/edit', questionController.editQuestion);
 
 
 /**
  * Routes to handle answers
  */
 router.post('/:q_id/answers', answerController.postAnswer);
-router.get('/:q_id/answers',answerController.getQuestionAnswers);
+router.get('/:q_id/answers', answerController.getQuestionAnswers);
 
-router.put('/:q_id/:a_id/edit',answerController.editAnswer);
-router.delete('/:q_id/:a_id/delete',answerController.deleteAnswer);
+router.put('/:q_id/:a_id/edit', answerController.editAnswer);
+router.delete('/:q_id/:a_id/delete', answerController.deleteAnswer);
 
-router.post('/:q_id/:a_id/reply',answerController.replyAnswer);
-router.get('/:q_id/:a_id/reply',answerController.getAllReply);
+router.post('/:q_id/:a_id/reply', answerController.replyAnswer);
+router.get('/:q_id/:a_id/reply', answerController.getAllReply);
 
-router.put('/:q_id/:a_id/upvote',answerController.upVoteAnswer);
-router.put('/:q_id/:a_id/downvote',answerController.downVoteAnswer);
-
-
+router.put('/:q_id/:a_id/upvote', answerController.upVoteAnswer);
+router.put('/:q_id/:a_id/downvote', answerController.downVoteAnswer);
 
 
 module.exports = router;
