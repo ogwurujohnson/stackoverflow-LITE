@@ -1,18 +1,17 @@
 // const bodyParser = require('body-parser');
-const client = require('../models/db');
+const db = require('../models/db');
 
-exports.getAllQuestions = (req, res) => {
-  const query = client.query('SELECT * from questions;');
-  query.on('row', (row, result) => {
-    result.addRow(row);
-  });
-  query.on('end', (result) => {
-    const jsonString = JSON.stringify(result.rows);
-    const jsonObj = JSON.parse(jsonString);
-    res.send(jsonString);
-    client.end();
-    context.succeed(jsonObj);
-  });
+exports.getAllQuestions = (req, res, next) => {
+  db.any('select * from users')
+    .then((data) => {
+      res.status(200)
+        .json({
+          status: 'success',
+          data: data,
+          message: 'Retrieved All Questions',
+        });
+    })
+    .catch((err) => { return next(err); });
 };
 
 exports.getSingleQuestion = (req, res) => {

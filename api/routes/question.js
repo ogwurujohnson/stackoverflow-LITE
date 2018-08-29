@@ -32,14 +32,14 @@ router.put('/:q_id/edit', questionController.editQuestion);
 router.post('/:q_id/answers', answerController.postAnswer);
 router.get('/:q_id/answers', answerController.getQuestionAnswers);
 
-router.put('/:q_id/:a_id/edit', answerController.editAnswer);
-router.delete('/:q_id/:a_id/delete', answerController.deleteAnswer);
+router.put('/:q_id/answers/:a_id/edit', answerController.editAnswer);
+router.delete('/:q_id/answers/:a_id/delete', answerController.deleteAnswer);
 
-router.post('/:q_id/:a_id/reply', answerController.replyAnswer);
-router.get('/:q_id/:a_id/reply', answerController.getAllReply);
+router.post('/:q_id/answers/:a_id/reply', answerController.replyAnswer);
+router.get('/:q_id/answers/:a_id/reply', answerController.getAllReply);
 
-router.put('/:q_id/:a_id/upvote', answerController.upVoteAnswer);
-router.put('/:q_id/:a_id/downvote', answerController.downVoteAnswer);
+router.put('/:q_id/answers/:a_id/upvote', answerController.upVoteAnswer);
+router.put('/:q_id/answers/:a_id/downvote', answerController.downVoteAnswer);
 
 
 module.exports = router;
