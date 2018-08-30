@@ -1,17 +1,8 @@
 // const bodyParser = require('body-parser');
-const db = require('../models/db');
 
-exports.getAllQuestions = (req, res, next) => {
-  db.any('select * from users')
-    .then((data) => {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved All Questions',
-        });
-    })
-    .catch((err) => { return next(err); });
+
+exports.getAllQuestions = (req, res) => {
+  res.json({ message: 'all Question' });
 };
 
 exports.getSingleQuestion = (req, res) => {

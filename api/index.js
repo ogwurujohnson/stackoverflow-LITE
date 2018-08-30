@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 
 
@@ -30,6 +30,8 @@ const userRouter = require('./routes/user');
 }); */
 
 app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/v1', (req, res) => {
   res.send('Welcome Boy');
