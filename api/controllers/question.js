@@ -1,27 +1,35 @@
 // const bodyParser = require('body-parser');
-const pg = require('pg');
-
-const conString = process.env.POSTGRES_CONNECTION_URL;
-
+const pool = require('../models/db');
 
 exports.getAllQuestions = (req, res) => {
-  pg.Connection(conString, (err, client, done) => {
+  pool.connect((err, client, done) => {
     if (err) {
-      return console.error('error fetching client from pool', err);
+      console.log(`Can not connect to the DB  ${err}`);
     }
     console.log('connected to database');
     client.query('SELECT * FROM questions', (error, result) => {
       done();
-      if (error) {
-        return console.error('error running query', error);
+      if (err) {
+        console.log(error);
+        res.status(400).send(error);
       }
-      res.send(result);
+      res.status(200).send(result.rows);
     });
   });
 };
 
 exports.getSingleQuestion = (req, res) => {
-  res.json({ message: 'Single Question' });
+  const questionId = req.params.q_id;
+  pool.connect((err, client, done) => {
+    client.query('SELECT * FROM questions WHERE question_id = $1', [questionId], (error, result) => {
+      done();
+      if (error) {
+        console.log(error);
+        res.status(400).send(error);
+      }
+      res.status(200).send(result.rows);
+    });
+  });
 };
 
 exports.editQuestion = (req, res) => {
