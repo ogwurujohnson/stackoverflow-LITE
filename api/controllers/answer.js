@@ -1,11 +1,22 @@
 // const bodyParser = require('body-parser');
+const pool = require('../models/db');
 
 exports.postAnswer = (req, res) => {
   res.json({ message: 'posted answer' });
 };
 
 exports.getQuestionAnswers = (req, res) => {
-  res.json({ message: 'answers to question' });
+  pool.connect((err, client, done) => {
+    const questionId = req.params.q_id;
+    client.query('SELECT * FROM answers WHERE question_id = $1', [questionId], (error, result) => {
+      done();
+      if (error) {
+        console.log(error);
+        res.status(400).send(error);
+      }
+      res.status(200).send(result.rows);
+    });
+  });
 };
 
 exports.editAnswer = (req, res) => {
