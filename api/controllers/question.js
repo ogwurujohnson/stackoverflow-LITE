@@ -41,5 +41,9 @@ exports.deleteQuestion = (req, res) => {
 };
 
 exports.postQuestion = (req, res) => {
+  const data = {
+    title: req.body.title,
+    description: req.body.description,
+  };
   res.json({ message: 'ask question' });
 };
