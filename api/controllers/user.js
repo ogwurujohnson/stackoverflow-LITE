@@ -43,6 +43,7 @@ exports.addUser = (req, res) => {
       //if users email doesn't exist go ahead and do insertion
       else{
         const password = req.body.password;
+        //hash and salt password
         bcrypt.hash(password, 10, (err, hash) => {
           if (err) {
             res.status(400).send(err);
@@ -52,12 +53,15 @@ exports.addUser = (req, res) => {
               if (err) {
                 console.log(`Connection to db failed ${err}`);
               }
+
               const data = {
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 email: email,
                 password: hash,
               };
+              
+              //insert to db
               const query = 'INSERT INTO users(firstname, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING *';
               const values = [data.firstname, data.lastname, data.email, data.password];
       
