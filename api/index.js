@@ -37,8 +37,8 @@ app.get('/api/v1', (req, res) => {
   res.send('Welcome Boy');
 });
 
-app.use('/api/v1/questions', questionRouter);
-app.use('/api/v1/users', userRouter);
+app.use('/api/v1/question', questionRouter);
+app.use('/api/v1/user', userRouter);
 
 
 app.use((req, res, next) => {
