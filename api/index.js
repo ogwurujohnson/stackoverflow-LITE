@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
-// const bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const logger = require('morgan');
 
 
@@ -30,13 +30,15 @@ const userRouter = require('./routes/user');
 }); */
 
 app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/v1', (req, res) => {
+app.get('/api/v1', (req, res) => {
   res.send('Welcome Boy');
 });
 
-app.use('/v1/questions', questionRouter);
-app.use('/v1/users', userRouter);
+app.use('/api/v1/questions', questionRouter);
+app.use('/api/v1/users', userRouter);
 
 
 app.use((req, res, next) => {
