@@ -27,48 +27,54 @@ exports.getUserSingleQuestion = (req, res) => {
   res.json({ message: 'users single view of their question' });
 };
 
+
+// controller for user signup
 exports.addUser = (req, res) => {
   const email = req.body.email;
   pool.connect((err, client, done) => {
+    //check is user email exists
     client.query('SELECT * FROM users WHERE email = $1', [email], (error, result) => {
       done();
+      //if user email exists display message
       if(result.rows >= '1'){
         res.status(409).json({error: "user already exists"});
       }
+
+      //if users email doesn't exist go ahead and do insertion
       else{
         const password = req.body.password;
-      bcrypt.hash(password, 10, (err, hash) => {
-        if (err) {
-          res.status(400).send(err);
-        } else{ 
-          console.log(hash);
-          pool.connect((err, client, done) => {
-            if (err) {
-              console.log(`Connection to db failed ${err}`);
-            }
-            const data = {
-              firstname: req.body.firstname,
-              lastname: req.body.lastname,
-              email: email,
-              password: hash,
-            };
-            const query = 'INSERT INTO users(firstname, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING *';
-            const values = [data.firstname, data.lastname, data.email, data.password];
-    
-            client.query(query, values, (error, result) => {
-              done();
-              if (error) {
-                console.log(error);
-                res.status(400).send(error);
+        bcrypt.hash(password, 10, (err, hash) => {
+          if (err) {
+            res.status(400).send(err);
+          } else{ 
+            console.log(hash);
+            pool.connect((err, client, done) => {
+              if (err) {
+                console.log(`Connection to db failed ${err}`);
               }
-              res.status(200).json(data);
+              const data = {
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                email: email,
+                password: hash,
+              };
+              const query = 'INSERT INTO users(firstname, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING *';
+              const values = [data.firstname, data.lastname, data.email, data.password];
+      
+              client.query(query, values, (error, result) => {
+                done();
+                if (error) {
+                  console.log(error);
+                  res.status(400).send(error);
+                }
+                res.status(200).json(data);
+              });
             });
-          });
+          }
+        });
         }
       });
-      }
     });
-  });
   
   
   
