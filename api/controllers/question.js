@@ -1,21 +1,35 @@
 // const bodyParser = require('body-parser');
-const db = require('../models/db');
+const pool = require('../models/db');
 
-exports.getAllQuestions = (req, res, next) => {
-  db.any('select * from users')
-    .then((data) => {
-      res.status(200)
-        .json({
-          status: 'success',
-          data: data,
-          message: 'Retrieved All Questions',
-        });
-    })
-    .catch((err) => { return next(err); });
+exports.getAllQuestions = (req, res) => {
+  pool.connect((err, client, done) => {
+    if (err) {
+      console.log(`Can not connect to the DB  ${err}`);
+    }
+    console.log('connected to database');
+    client.query('SELECT * FROM questions', (error, result) => {
+      done();
+      if (err) {
+        console.log(error);
+        res.status(400).send(error);
+      }
+      res.status(200).send(result.rows);
+    });
+  });
 };
 
 exports.getSingleQuestion = (req, res) => {
-  res.json({ message: 'Single Question' });
+  const questionId = req.params.q_id;
+  pool.connect((err, client, done) => {
+    client.query('SELECT * FROM questions WHERE question_id = $1', [questionId], (error, result) => {
+      done();
+      if (error) {
+        console.log(error);
+        res.status(400).send(error);
+      }
+      res.status(200).send(result.rows);
+    });
+  });
 };
 
 exports.editQuestion = (req, res) => {
@@ -27,5 +41,9 @@ exports.deleteQuestion = (req, res) => {
 };
 
 exports.postQuestion = (req, res) => {
+  const data = {
+    title: req.body.title,
+    description: req.body.description,
+  };
   res.json({ message: 'ask question' });
 };
