@@ -4,14 +4,17 @@ const router = express.Router();
 
 const userController = require('../controllers/user');
 
+// user auth route
+router.post('/signup', userController.addUser);
+
 
 // user routes
 router.get('/', userController.getAllUsers);
-router.get('/:username', userController.getUserDetails);
+router.get('/:u_id', userController.getUserDetails);
 
 // users question routes
-router.get('/:username/questions', userController.getUserQuestions);
-router.get('/:username/questions/:q_id', userController.getUserSingleQuestion);
+router.get('/:u_id/questions', userController.getUserQuestions);
+router.get('/:u_id/questions/:q_id', userController.getUserSingleQuestion);
 
 // user answer routes
 
