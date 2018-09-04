@@ -6,7 +6,7 @@ exports.postAnswer = (req, res) => {
   const data = {
     description: req.body.description,
     
-  }
+  };
 };
 
 exports.getQuestionAnswers = (req, res) => {
