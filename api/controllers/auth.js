@@ -62,21 +62,25 @@ exports.addUser = (req, res) => {
 exports.loginUser = (req, res) => {
   const { email } = req.body;
   pool.connect((err, client, done) => {
+    // check to see if user email exists
     client.query('SELECT * FROM users WHERE email = $1', [email], (error, result) => {
       done();
       if (result.rows < '1') {
         res.status(401).json({ message: 'Authentication Failed' });
       } else {
+        // if it does use bcrypt to compare supplied password with stored hash
         const { password } = req.body;
         const hash = result.rows[0].password;
         const userEmail = result.rows[0].email;
         const userId = result.rows[0].user_id;
         bcrypt.compare(password, hash, (err, result) => {
           if (result) {
+            // create a jwt token using jwt.sign
             jwt.sign({
               userEmail,
               userId,
             },
+            // above is the payload, below is your secret key
             process.env.JWT_SECRET_KEY,
             {
               expiresIn: '1h',
