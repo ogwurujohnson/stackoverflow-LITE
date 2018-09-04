@@ -82,7 +82,7 @@ exports.loginUser = (req, res) => {
               expiresIn: '1h',
             }, (err, token) => {
               if (token) {
-                res.send(token);
+                console.log(token);
               } else {
                 res.json({ message: 'Token not generated' });
               }
