@@ -24,7 +24,7 @@ exports.getQuestionAnswers = (req, res) => {
 };
 
 exports.editAnswer = (req, res) => {
-  res.json({ message: 'edit question' });
+  res.json({ message: 'edit answer' });
 };
 
 exports.deleteAnswer = (req, res) => {
