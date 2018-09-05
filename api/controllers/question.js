@@ -38,9 +38,26 @@ exports.getSingleQuestion = (req, res) => {
 };
 
 exports.editQuestion = (req, res) => {
-  res.json({ message: 'edit Question' });
+  const questionId = req.params.q_id;
+  const data = {
+    title: req.body.title,
+    description: req.body.description,
+  };
+  pool.connect((err, client, done) => {
+    client.query('UPDATE questions SET question_title=$2,question_description=$3 Where question_id = $1', [questionId, data.title, data.description], (error, result) => {
+      done();
+      if (error) {
+        console.log(error);
+        res.status(400).send(error);
+      }
+      res.status(200).json(data);
+    });
+  });
+  
 };
 
+
+// didn't work because of foreign key issues
 exports.deleteQuestion = (req, res) => {
   // DELETE FROM tbltravellers WHERE memo_serial='$pnr'
   pool.connect((err, client, done) => {
