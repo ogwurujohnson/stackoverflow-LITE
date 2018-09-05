@@ -1,11 +1,9 @@
 # stackoverflow-LITE
 
-# StackOverflow-lite
-
 [![Build Status](https://travis-ci.org/Darthrighteous/StackOverflow-lite.svg?branch=develop)](https://travis-ci.org/Darthrighteous/StackOverflow-lite)  [![Coverage Status](https://coveralls.io/repos/github/Darthrighteous/StackOverflow-lite/badge.svg?branch=develop)](https://coveralls.io/github/Darthrighteous/StackOverflow-lite?branch=develop)
 
 ## Introduction 
-StackOverflow-lite is a (WorkInProgress) web app built using Nodejs and Express, that enables users to post and answer questions, comment on questions, upvote/downvote question and answers.
+StackOverflow-lite is a (Work In Progress) web app built using Nodejs and Express, that enables users to post and answer questions, comment on questions, upvote/downvote question and answers.
 
 ## Features
 - Users can view all question on the app.
