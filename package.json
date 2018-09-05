@@ -10,6 +10,10 @@
     "start": "node index.js",
     "dev-start": "babel-watch index.js"
   },
+  "engines": {
+    "node": "8.11.3",
+    "npm": "6.1.0"
+  },
   "author": "ogwurujohnson",
   "license": "ISC",
   "dependencies": {
