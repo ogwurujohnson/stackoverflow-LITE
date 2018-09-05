@@ -8,6 +8,7 @@ const logger = require('morgan');
 const app = express();
 const questionRouter = require('./routes/question');
 const userRouter = require('./routes/user');
+const authRouter = require('./routes/auth');
 
 
 /**
@@ -39,6 +40,7 @@ app.get('/api/v1', (req, res) => {
 
 app.use('/api/v1/question', questionRouter);
 app.use('/api/v1/user', userRouter);
+app.use('/api/v1/auth', authRouter);
 
 
 app.use((req, res, next) => {
@@ -53,6 +55,13 @@ app.use((err, req, res, next) => {
       message: err.message,
     },
   });
+});
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:4200'); //* will allow from all cross domain
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  next();
 });
 
 const port = process.env.port || 3000;
