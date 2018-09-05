@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const questionController = require('../controllers/question');
 const answerController = require('../controllers/answer');
-
+const checkAuth = require('../middleware/verify_auth');
 /**
  * ?note: q_id = question_id,
  * ? a_id = answer_id
@@ -17,29 +17,29 @@ const answerController = require('../controllers/answer');
  * Routes to handle Questions
  */
 router.get('/', questionController.getAllQuestions);
-router.post('/', questionController.postQuestion);
+router.post('/', checkAuth, questionController.postQuestion);
 
 router.get('/:q_id', questionController.getSingleQuestion);
-router.delete('/:q_id/delete', questionController.deleteQuestion);
+router.delete('/:q_id/delete', checkAuth, questionController.deleteQuestion);
 
-router.get('/:q_id/edit', questionController.editQuestion);
-router.put('/:q_id/edit', questionController.editQuestion);
+router.get('/:q_id/edit', checkAuth, questionController.editQuestion);
+router.put('/:q_id/edit', checkAuth, questionController.editQuestion);
 
 
 /**
  * Routes to handle answers
  */
-router.post('/:q_id/answers', answerController.postAnswer);
+router.post('/:q_id/answers', checkAuth, answerController.postAnswer);
 router.get('/:q_id/answers', answerController.getQuestionAnswers);
 
-router.put('/:q_id/answers/:a_id/edit', answerController.editAnswer);
-router.delete('/:q_id/answers/:a_id/delete', answerController.deleteAnswer);
+router.put('/:q_id/answers/:a_id/edit', checkAuth, answerController.editAnswer);
+router.delete('/:q_id/answers/:a_id/delete', checkAuth, answerController.deleteAnswer);
 
-router.post('/:q_id/answers/:a_id/reply', answerController.replyAnswer);
+router.post('/:q_id/answers/:a_id/reply', checkAuth, answerController.replyAnswer);
 router.get('/:q_id/answers/:a_id/reply', answerController.getAllReply);
 
-router.put('/:q_id/answers/:a_id/upvote', answerController.upVoteAnswer);
-router.put('/:q_id/answers/:a_id/downvote', answerController.downVoteAnswer);
+router.put('/:q_id/answers/:a_id/upvote', checkAuth, answerController.upVoteAnswer);
+router.put('/:q_id/answers/:a_id/downvote', checkAuth, answerController.downVoteAnswer);
 
 
 module.exports = router;

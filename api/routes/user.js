@@ -3,10 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const userController = require('../controllers/user');
-
-// user auth route
-router.post('/signup', userController.addUser);
-router.post('/login', userController.loginUser);
+const checkAuth = require('../middleware/verify_auth');
 
 
 // user routes
@@ -14,8 +11,8 @@ router.get('/', userController.getAllUsers);
 router.get('/:u_id', userController.getUserDetails);
 
 // users question routes
-router.get('/:u_id/questions', userController.getUserQuestions);
-router.get('/:u_id/questions/:q_id', userController.getUserSingleQuestion);
+router.get('/:u_id/questions', checkAuth, userController.getUserQuestions);
+router.get('/:u_id/questions/:q_id', checkAuth, userController.getUserSingleQuestion);
 
 // user answer routes
 
