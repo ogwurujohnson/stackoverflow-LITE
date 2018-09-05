@@ -44,7 +44,7 @@ exports.editAnswer = (req, res) => {
     userId: req.body.userId,
   };
   pool.connect((err, client, done) => {
-    client.query('UPDATE questions SET answer_description=$2,user_id=$3 Where answer_id = $1', [answerId, data.description, data.userId], (error, result) => {
+    client.query('UPDATE answers SET answer_description=$2,user_id=$3 Where answer_id = $1', [answerId, data.description, data.userId], (error, result) => {
       done();
       if (error) {
         console.log(error);
@@ -53,11 +53,25 @@ exports.editAnswer = (req, res) => {
       res.status(200).json(data);
     });
   });
-  res.json({ message: 'edit answer' });
 };
 
 exports.deleteAnswer = (req, res) => {
-  res.json({ message: 'delete answer' });
+  pool.connect((err, client, done) => {
+    const data = {
+      answerId: req.params.a_id,
+    };
+
+    const query = 'DELETE FROM answers WHERE answer_id = $1 ';
+    const values = [data.answerId];
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        console.log(error);
+        res.status(400).send(error);
+      }
+      res.status(200).json(result);
+    });
+  });
 };
 
 exports.replyAnswer = (req, res) => {
