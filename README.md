@@ -24,7 +24,7 @@ StackOverflow-lite is a (Work In Progress) web app built using Nodejs and Expres
 ## Getting Started
 - Ensure you have Node and Node Package Manager installed
 - Clone the repo
-`$ git clone https://github.com/Darthrighteous/StackOverflow-lite.git`
+`$ git clone https://github.com/ogwurujohnson/stackoverflow-LITE.git`
 
 - Checkout to the feature branch
 `$ git checkout feature`
@@ -33,54 +33,55 @@ StackOverflow-lite is a (Work In Progress) web app built using Nodejs and Expres
 `$ npm install`
 
 - start the application by running
-`$ npm run nodemon`
+`$ npm run dev`
 
-- test endpoints on Postman or another api testing service
+- test endpoints on Postman or another api testing service by running
+`$ npm test `
 
 ## API endpoints
 - to get all questions
-	- GET `https://localhost:4001/v1/questions`
+	- GET `https://localhost:3000/v1/questions`
 
 - to get one question but its id
-	- GET `https://localhost:4001/v1/questions/:questionId`
+	- GET `https://localhost:3000/v1/questions/:questionId`
 
 - to post a question
-	- POST `https://localhost:4001/v1/questions`
+	- POST `https://localhost:3000/v1/questions`
 with a JSON body of the following format:
 <pre><code>
  {
  	"title": "<i>question title</i>",
- 	"body": "<i>question body</i>",
- 	"user": "<i>username</i>"}
+ 	"description": "<i>question body</i>",
+ 	"userId": "<i>user id</i>"}
 </code></pre>
 
 - to post an answer to a question of questionId
-	- POST `https://localhost:4001/v1/questions/:questionId/answers`
+	- POST `https://localhost:3000/v1/questions/:questionId/answers`
 
 - to update a question of questionId
-	- PATCH `https://localhost:4001/v1/questions/:questionId`
+	- PATCH `https://localhost:3000/v1/questions/:questionId`
 with a JSON body of the following format: 
 <pre><code>
 {
-	"attribute": "<i>attribute to be updated</i>",
-	"value": "<i>update value</i>"
+	"question": "<i>attribute to be updated</i>",
+	
 }
 </code></pre>	
-	> Where **attribute** can be *score*, *title* or *body*.
+	> Where **attribute** can be *score*, *title* or *description*.
 	> If **attribute** is *score*, **value** must be *increment* or *decrement*.
 	> if **attribute** is *title* or *body*, **value** should be required title or body update respectively.
 
 - to accept an answer to your question as your preferred answer
-	- PATCH `https://localhost:4001/v1/questions/:questionId/answers/:answerId`
+	- PATCH `https://localhost:3000/v1/questions/:questionId/answers/:answerId`
 
 - to delete a question of questionId
-	- DELETE  `https://localhost:4001/v1/questions/:questionId`
+	- DELETE  `https://localhost:3000/v1/questions/:questionId`
 
 ## Testing
-Uses Jasmine to test, and Nyc for test coverage
+Uses Mocha, Chai and Chai-http to test, and Nyc for test coverage
 
 - to test, run
-`$ npm run test`
+`$ npm test`
 
 - to see test coverage, run
 `$ npm run coverage`
@@ -88,3 +89,7 @@ Uses Jasmine to test, and Nyc for test coverage
 ## Current Limitations
 
 ## How to contribute
+
+## Author
+`Ogwuru Johnson`
+
