@@ -1,15 +1,13 @@
-
-
 const chai = require('chai');
 const { expect } = require('chai');
 
 chai.use(require('chai-http'));
 
 const app = require('../../index'); // Our app
-const users = require('../testInfo'); //test users
+const users = require('../testInfo'); // test users
 
 let userToken;
-let personalToken;
+
 
 describe('GET api/v1/questions', () => {
   it('should return response status 200', (done) => {
