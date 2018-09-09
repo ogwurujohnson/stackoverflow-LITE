@@ -18,7 +18,7 @@ exports.postAnswer = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).json(data);
+      res.status(201).json(data);
     });
   });
 };
@@ -32,7 +32,7 @@ exports.getQuestionAnswers = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).send(result.rows);
+      res.status(200).json({ result: result.rows });
     });
   });
 };
@@ -50,7 +50,7 @@ exports.editAnswer = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).json(data);
+      res.status(201).json(data);
     });
   });
 };
@@ -69,7 +69,7 @@ exports.deleteAnswer = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).json(result);
+      res.status(201).json(result);
     });
   });
 };
@@ -88,7 +88,7 @@ exports.getAllReply = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).send(result.rows);
+      res.status(200).json({ result: result.rows });
     });
   });
 };
