@@ -68,5 +68,5 @@ Running unit tests.
 
 
 ## Author
-`Ogwuru Johnson`
+[Ogwuru Johnson](https://www.github.com/ogwurujohnson)
 
