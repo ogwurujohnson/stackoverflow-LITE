@@ -33,13 +33,20 @@ exports.getSingleQuestion = (req, res) => {
     client.query('SELECT * FROM questions WHERE question_id = $1', [questionId], (error, result) => {
       done();
       if (error) {
-        console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).json({
-        status: 'success',
-        message: 'questions fetched successfully',
-        question: result.rows,
+      const fetchedQuestion = result.rows[0].question_id;
+      client.query('SELECT * FROM answers WHERE question_id = $1', [fetchedQuestion], (error, answers) => {
+        done();
+        if (error) {
+          res.status(400).send(error);
+        }
+        res.status(200).json({
+          status: 'success',
+          message: 'questions fetched successfully',
+          question: result.rows,
+          answers: answers.rows,
+        });
       });
     });
   });
@@ -55,10 +62,9 @@ exports.editQuestion = (req, res) => {
     client.query('UPDATE questions SET question_title=$2,question_description=$3 Where question_id = $1', [questionId, data.title, data.description], (error, result) => {
       done();
       if (error) {
-        console.log(error);
         res.status(400).send(error);
       }
-      res.status(201).json(data);
+      res.status(201).json({ editedQuestion: data });
     });
   });
 };
@@ -77,10 +83,9 @@ exports.deleteQuestion = (req, res) => {
     client.query(query, values, (error, result) => {
       done();
       if (error) {
-        console.log(error);
-        res.status(400).send(error);
+        res.status(400).json({ error });
       }
-      res.status(201).json(result);
+      res.status(201).json({ deletedQuestion: result });
     });
   });
 };
@@ -99,10 +104,11 @@ exports.postQuestion = (req, res) => {
     client.query(query, values, (error, result) => {
       done();
       if (error) {
-        console.log(error);
         res.status(400).send(error);
       }
-      res.status(201).json(data);
+      res.status(201).json({
+        newQuestion: data,
+      });
     });
   });
 };
