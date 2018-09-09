@@ -1,8 +1,8 @@
 # stackoverflow-LITE
 
 [![Build Status](https://travis-ci.org/ogwurujohnson/stackoverflow-LITE.svg?branch=master)](https://travis-ci.org/ogwurujohnson/stackoverflow-LITE)
-[![Coverage Status](https://coveralls.io/repos/github/<github username>/<repo name>/badge.svg?branch=master)](https://coveralls.io/github/<github username>/<repo name>?branch=master)
-[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/<github username>/<repo name>)
+[![Coverage Status](https://coveralls.io/repos/github/ogwurujohnson/stackoverflow-LITE/badge.svg?branch=master)](https://coveralls.io/github/ogwurujohnson/stackoverflow-LITE?branch=master)
+[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/ogwurujohnson/stackoverflow-LITE)
 
 ## Introduction 
 StackOverflow-lite is a (Work In Progress) web app built using Nodejs and Express, that enables users to post and answer questions, comment on questions, upvote/downvote question and answers.
