@@ -33,21 +33,24 @@ exports.getAllUsers = (req, res) => {
 
 exports.getUserDetails = (req, res) => {
   pool.connect((err, client, done) => {
-    if (err) {
-      console.log(`Can not connect to the DB  ${err}`);
-    }
-    console.log('connected to database');
     const userId = req.params.u_id;
-    client.query('SELECT * FROM users where user_id = $1', [userId], (error, result) => {
+    client.query('SELECT user_id,firstname,lastname,email FROM users WHERE user_id = $1', [userId], (error, result) => {
       done();
-      if (err) {
-        console.log(error);
+      if (error) {
         res.status(400).send(error);
       }
-      res.status(200).json({
-        status: 'success',
-        message: 'user fetched successfully',
-        user: result.rows,
+      const fetchedUser = result.rows[0].user_id;
+      client.query('SELECT * FROM questions WHERE user_id = $1', [fetchedUser], (error, answers) => {
+        done();
+        if (error) {
+          res.status(400).send(error);
+        }
+        res.status(200).json({
+          status: 'success',
+          message: 'user fetched successfully',
+          user: result.rows,
+          questions: answers.rows,
+        });
       });
     });
   });
