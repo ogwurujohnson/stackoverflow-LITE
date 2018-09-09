@@ -18,7 +18,11 @@ exports.getAllQuestions = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).send(result.rows);
+      res.status(200).json({
+        status: 'success',
+        message: 'questions fetched successfully',
+        questions: result.rows,
+      });
     });
   });
 };
@@ -32,7 +36,11 @@ exports.getSingleQuestion = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).send(result.rows);
+      res.status(200).json({
+        status: 'success',
+        message: 'questions fetched successfully',
+        question: result.rows,
+      });
     });
   });
 };
@@ -50,10 +58,9 @@ exports.editQuestion = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).json(data);
+      res.status(201).json(data);
     });
   });
-  
 };
 
 
@@ -73,7 +80,7 @@ exports.deleteQuestion = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).json(result);
+      res.status(201).json(result);
     });
   });
 };
@@ -95,7 +102,7 @@ exports.postQuestion = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(200).json(data);
+      res.status(201).json(data);
     });
   });
 };
