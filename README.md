@@ -46,11 +46,9 @@ UI templates are yet to be hosted
 * Install [NodeJs](https://nodejs.org/en/download/) and [PostgreSQL](https://www.postgresql.org/download/) on your computer.
 * Clone this repository using `git clone https://github.com/ogwurujohnson/stackoverflow-LITE.git`.
 * Set up your environment variables in a `.env` file. Follow the pattern in the `config/config.js file`.
-* Create your development and test databases and add their credentials to the `.env` file.
+* You would find a sample.ennv file in your root folder, it contains samples of what you need to add to your .env file.
 * Run `npm install` to install all dependencies.
-* Run `db:migrate` to setup yourdatabase.
-* Run `db:seed` to seed your database with data. Optionally run `db:setup` to both setup and seed your database.
-* Run `npm run start:dev` to start the server.
+* Run `npm run dev` to start the server.
 * Navigate to [localhost:3000/api/v1](localhost:3000/api/v1) in your browser to access the application.
 
 ### Testing the application
