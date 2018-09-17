@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/ogwurujohnson/stackoverflow-LITE)
 
 
-[![Dependency Status](https://david-dm.org/ogwurujohnson/stackoverflow-LITE.svg)]
+[![Dependency Status](https://david-dm.org/ogwurujohnson/stackoverflow-LITE)](https://david-dm.org/ogwurujohnson/stackoverflow-LITE)
 A platform for users to ask questions and give answers to asked questions.
 
 ## Implemented Features
