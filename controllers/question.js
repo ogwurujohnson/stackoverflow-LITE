@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../models/db');
-const { getAll } = require('../models/dbHelper');
+const { getAll, getSingleQuestion } = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
@@ -13,28 +13,9 @@ exports.getAllQuestions = (req, res) => {
 
 exports.getSingleQuestion = (req, res) => {
   const questionId = req.params.q_id;
-  pool.connect((err, client, done) => {
-    client.query('SELECT * FROM questions WHERE question_id = $1', [questionId], (error, result) => {
-      done();
-      if (error) {
-        res.status(400).send(error);
-      }
-      const fetchedQuestion = result.rows[0].question_id;
-      client.query('SELECT * FROM answers WHERE question_id = $1', [fetchedQuestion], (error, answers) => {
-        done();
-        if (error) {
-          res.status(400).send(error);
-        }
-        res.status(200).json({
-          status: 'success',
-          message: 'questions fetched successfully',
-          question: result.rows,
-          answers: answers.rows,
-        });
-      });
-    });
-  });
+  getSingleQuestion('questions', 'answers', req, res, questionId);
 };
+
 
 exports.editQuestion = (req, res) => {
   const questionId = req.params.q_id;
