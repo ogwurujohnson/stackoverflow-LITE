@@ -29,6 +29,7 @@ describe('Questions', () => {
       chai.request(app)
         .get('/api/v1/questions')
         .end((err, res) => {
+          if (err) done(err);
           res.body.should.have.property('questions');
           res.body.questions.should.be.a('array');
           done();
@@ -41,7 +42,7 @@ describe('Questions', () => {
       chai.request(app)
         .get('/api/v1/questions/1')
         .end((err, res) => {
-          if(err) done(err);
+          if (err) done(err);
           res.should.have.status(200);
           res.body.should.be.a('object');
           done();
@@ -74,7 +75,26 @@ describe('Questions', () => {
         });
     });
 
-    
+    it('should return status code 201', (done) => {
+      const body = {
+        title: 'Test Title',
+        description: 'Test Description',
+        userId: 1,
+      };
+      chai.request(app)
+        .post('/api/v1/questions')
+        .set('Authorization', `Bearer ${userToken}`)
+        .send(body)
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(201);
+          res.body.should.have.property('newQuestion');
+          done();
+        });
+    });
+
+
+
   });
 });
 
