@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for stackoverflow-LITE\controllers\answer.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">stackoverflow-LITE/controllers/</a> answer.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.52% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>9/58</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/10</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">15.52% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>9/58</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// const bodyParser = require('body-parser');
+const pool = require('../models/db');
+&nbsp;
+exports.postAnswer = (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  pool.connect((err, client, done) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const data = {</span>
+      questionId: req.params.q_id,
+      description: req.body.description,
+      userId: req.body.userId,
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    const query = 'INSERT INTO answers(question_id,answer_description, user_id) VALUES($1, $2, $3) RETURNING *';</span>
+<span class="cstat-no" title="statement not covered" >    const values = [data.questionId, data.description, data.userId];</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    client.query(query, values, (error, result) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      done();</span>
+<span class="cstat-no" title="statement not covered" >      if (error) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(400).send(error);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      res.status(201).json(data);</span>
+    });
+  });
+};
+&nbsp;
+exports.getQuestionAnswers = (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  const questionId = req.params.q_id;</span>
+<span class="cstat-no" title="statement not covered" >  pool.connect((err, client, done) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    client.query('SELECT * FROM answers WHERE question_id = $1', [questionId], (error, result) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      done();</span>
+<span class="cstat-no" title="statement not covered" >      if (error) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(400).send(error);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      res.status(200).json({ result: result.rows });</span>
+    });
+  });
+};
+&nbsp;
+exports.editAnswer = (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  const answerId = req.params.a_id;</span>
+<span class="cstat-no" title="statement not covered" >  const data = {</span>
+    description: req.body.description,
+    userId: req.body.userId,
+  };
+<span class="cstat-no" title="statement not covered" >  pool.connect((err, client, done) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    client.query('UPDATE answers SET answer_description=$2,user_id=$3 Where answer_id = $1', [answerId, data.description, data.userId], (error, result) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      done();</span>
+<span class="cstat-no" title="statement not covered" >      if (error) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(400).send(error);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      res.status(201).json(data);</span>
+    });
+  });
+};
+&nbsp;
+exports.deleteAnswer = (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  pool.connect((err, client, done) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    const data = {</span>
+      answerId: req.params.a_id,
+    };
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    const query = 'DELETE FROM answers WHERE answer_id = $1 ';</span>
+<span class="cstat-no" title="statement not covered" >    const values = [data.answerId];</span>
+<span class="cstat-no" title="statement not covered" >    client.query(query, values, (error, result) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      done();</span>
+<span class="cstat-no" title="statement not covered" >      if (error) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(400).send(error);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      res.status(201).json(result);</span>
+    });
+  });
+};
+&nbsp;
+exports.replyAnswer = (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  res.json({ message: 'reply to an answer' });</span>
+};
+&nbsp;
+exports.getAllReply = (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  const answerId = req.params.a_id;</span>
+<span class="cstat-no" title="statement not covered" >  const questionId = req.params.q_id;</span>
+<span class="cstat-no" title="statement not covered" >  pool.connect((err, client, done) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    client.query('SELECT * FROM answers WHERE answer_id = $1 &amp;&amp; question_id = $2', [answerId, questionId], (error, result) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      done();</span>
+<span class="cstat-no" title="statement not covered" >      if (error) {</span>
+<span class="cstat-no" title="statement not covered" >        console.log(error);</span>
+<span class="cstat-no" title="statement not covered" >        res.status(400).send(error);</span>
+      }
+<span class="cstat-no" title="statement not covered" >      res.status(200).json({ result: result.rows });</span>
+    });
+  });
+};
+&nbsp;
+exports.upVoteAnswer = (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  res.json({ message: 'up-vote an answer' });</span>
+};
+&nbsp;
+exports.downVoteAnswer = (req, res) =&gt; {
+<span class="cstat-no" title="statement not covered" >  res.json({ message: 'down-vote an answer' });</span>
+};
+&nbsp;</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Sep 19 2018 07:58:51 GMT+0100 (W. Central Africa Standard Time)
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>
