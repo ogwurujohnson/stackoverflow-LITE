@@ -10,10 +10,10 @@ chai.use(chaiHttp);
 const users = require('../testInfo'); // test users
 
 let userToken;
+let userrToken;
 
 describe('Questions', () => {
   describe('/GET questions', () => {
-
     it('should return response status 200', (done) => {
       chai.request(app)
         .get('/api/v1/questions')
@@ -92,9 +92,36 @@ describe('Questions', () => {
           done();
         });
     });
+  });
 
-
-
+  describe('/DELETE Questions/q_id', () => {
+    before((done) => {
+      chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(users.patrick)
+        .end((err, res) => {
+          if (err) done(err);
+          userToken = res.body.token;
+          done();
+        });
+    });
+  
+    it('should return status code 201', (done) => {
+      chai.request(app)
+        .delete('/api/v1/questions/1/delete')
+        .set('Authorization', `Bearer ${userToken}`)
+        .send(
+          {
+            questionId: 1,
+          },
+        )
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(200);
+          res.body.should.have.property('deletedQuestion');
+          done();
+        });
+    });
   });
 });
 
