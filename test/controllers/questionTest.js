@@ -7,6 +7,10 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
+const users = require('../testInfo'); // test users
+
+let userToken;
+
 describe('Questions', () => {
   describe('/GET questions', () => {
 
@@ -56,6 +60,21 @@ describe('Questions', () => {
           done();
         });
     });
+  });
+
+  describe('/POST questions', () => {
+    before((done) => {
+      chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(users.patrick)
+        .end((err, res) => {
+          if (err) done(err);
+          userToken = res.body.token;
+          done();
+        });
+    });
+
+    
   });
 });
 
