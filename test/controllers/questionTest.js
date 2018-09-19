@@ -1,15 +1,48 @@
 const chai = require('chai');
-const { expect } = require('chai');
-
-chai.use(require('chai-http'));
+const chaiHttp = require('chai-http');
 
 const app = require('../../index'); // Our app
-const users = require('../testInfo'); // test users
 
-let userToken;
+const should = chai.should();
+
+chai.use(chaiHttp);
+
+describe('Questions', () => {
+  describe('/GET questions', () => {
+
+    it('should return response status 200', (done) => {
+      chai.request(app)
+        .get('/api/v1/questions')
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+
+    it('it should return an array of questions', (done) => {
+      chai.request(app)
+        .get('/api/v1/questions')
+        .end((err, res) => {
+          res.body.should.have.property('questions');
+          res.body.questions.should.be.a('array');
+          done();
+        });
+    });
+  });
+
+  describe('/GET questions/q_id', () => {
+    it('it should return an ')
+  })
+});
+
+// const users = require('../testInfo'); // test users
+
+// let userToken;
 
 
-describe('GET api/v1/questions', () => {
+/* describe('GET api/v1/questions', () => {
   it('should return response status 200', (done) => {
     chai.request(app)
       .get('/api/v1/questions')
