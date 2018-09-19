@@ -1,4 +1,4 @@
-const chai = require('chai');
+/* const chai = require('chai');
 const { expect } = require('chai');
 
 chai.use(require('chai-http'));
@@ -57,4 +57,4 @@ describe('GET api/v1/users/:u_id', () => {
         done();
       });
   });
-});
+}); */
