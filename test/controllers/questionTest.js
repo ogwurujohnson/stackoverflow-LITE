@@ -33,8 +33,30 @@ describe('Questions', () => {
   });
 
   describe('/GET questions/q_id', () => {
-    it('it should return an ')
-  })
+    it('it should return response 200', (done) => {
+      chai.request(app)
+        .get('/api/v1/questions/1')
+        .end((err, res) => {
+          if(err) done(err);
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+
+    it('it should return a single question', (done) => {
+      chai.request(app)
+        .get('/api/v1/questions/1')
+        .end((err, res) => {
+          if (err) done(err);
+          res.body.should.have.property('question');
+          res.body.should.have.property('answers');
+          res.body.question.should.be.a('array');
+          res.body.answers.should.be.a('array');
+          done();
+        });
+    });
+  });
 });
 
 // const users = require('../testInfo'); // test users
