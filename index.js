@@ -65,9 +65,11 @@ app.use((err, req, res, next) => {
 
 const port = process.env.port || 3000;
 
+if (!module.parent) { // used to prevent our test from listening twice very important
+  app.listen(port, () => {
+    console.log(`server listening on port ${port} `);
+  });
+}
 
-app.listen(port, () => {
-  console.log(`server listening on port ${port} `);
-});
 
 module.exports = app;
