@@ -83,7 +83,7 @@ exports.loginUser = (req, res) => {
             // above is the payload, below is your secret key
             process.env.JWT_SECRET_KEY,
             {
-              expiresIn: '1h',
+              expiresIn: '24h',
             });
             res.status(200).json({ message: 'Authentication Successful', token });
           } else {
