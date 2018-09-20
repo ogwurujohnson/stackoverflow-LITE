@@ -20,10 +20,9 @@ router.get('/', questionController.getAllQuestions);
 router.post('/', checkAuth, questionController.postQuestion);
 
 router.get('/:q_id', questionController.getSingleQuestion);
-router.delete('/:q_id/delete', checkAuth, questionController.deleteQuestion);
+router.delete('/:q_id', checkAuth, questionController.deleteQuestion);
 
-router.get('/:q_id/edit', checkAuth, questionController.editQuestion);
-router.put('/:q_id/edit', checkAuth, questionController.editQuestion);
+router.put('/:q_id', checkAuth, questionController.editQuestion);
 
 
 /**

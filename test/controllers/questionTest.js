@@ -108,7 +108,7 @@ describe('Questions', () => {
   
     it('should return status code 201', (done) => {
       chai.request(app)
-        .delete('/api/v1/questions/1/delete')
+        .delete('/api/v1/questions/1')
         .set('Authorization', `Bearer ${userToken}`)
         .send(
           {
@@ -119,6 +119,36 @@ describe('Questions', () => {
           if (err) done(err);
           res.should.have.status(200);
           res.body.should.have.property('deletedQuestion');
+          done();
+        });
+    });
+  });
+
+  describe('/PUT  Questions/q_id', () => {
+    before((done) => {
+      chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(users.patrick)
+        .end((err, res) => {
+          if (err) done(err);
+          userToken = res.body.token;
+          done();
+        });
+    });
+
+    it('should return status code 201', (done) => {
+      const data = {
+        title: 'TEST edit',
+        description: 'TEST description',
+      };
+      chai.request(app)
+        .put('/api/v1/questions/1')
+        .set('Authorization', `Bearer ${userToken}`)
+        .send( data )
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(201);
+          res.body.should.have.property('editedQuestion');
           done();
         });
     });
