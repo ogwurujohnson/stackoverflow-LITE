@@ -4,7 +4,7 @@ require('dotenv').config();
 module.exports = (req, res, next) => {
   try {
     // fetch token from header
-    const token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(' ')[1] || req.body.token || req.query.token || req.headers['x-access-token'];
     // use jwt.verify to verify sent token
     const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
     req.userData = decoded;
