@@ -4,6 +4,7 @@ node_js:
 before_script:
   - psql -c 'create database travis;' -U postgres
 script: 
+  - JWT_SECRET_KEY = 'test'
   - "npm run-script migration"
   - "npm run-script seed"
   - "npm run-script test-travis"
