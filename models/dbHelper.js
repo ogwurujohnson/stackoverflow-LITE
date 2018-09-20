@@ -1,6 +1,6 @@
 const pool = require('../models/db');
 
-exports.getAll = (tableName, req, res) => {
+exports.getAllQuestions = (tableName, req, res) => {
   pool.connect((err, client, done) => {
     if (err) {
       console.log(err);
