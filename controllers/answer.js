@@ -18,24 +18,11 @@ exports.postAnswer = (req, res) => {
         console.log(error);
         res.status(400).send(error);
       }
-      res.status(201).json(data);
+      res.status(201).json();
     });
   });
 };
 
-exports.getQuestionAnswers = (req, res) => {
-  const questionId = req.params.q_id;
-  pool.connect((err, client, done) => {
-    client.query('SELECT * FROM answers WHERE question_id = $1', [questionId], (error, result) => {
-      done();
-      if (error) {
-        console.log(error);
-        res.status(400).send(error);
-      }
-      res.status(200).json({ result: result.rows });
-    });
-  });
-};
 
 exports.editAnswer = (req, res) => {
   const answerId = req.params.a_id;
@@ -74,15 +61,16 @@ exports.deleteAnswer = (req, res) => {
   });
 };
 
-exports.replyAnswer = (req, res) => {
+/* exports.replyAnswer = (req, res) => {
   res.json({ message: 'reply to an answer' });
-};
+}; */
 
-exports.getAllReply = (req, res) => {
+/* exports.getAllReply = (req, res) => {
   const answerId = req.params.a_id;
   const questionId = req.params.q_id;
   pool.connect((err, client, done) => {
-    client.query('SELECT * FROM answers WHERE answer_id = $1 && question_id = $2', [answerId, questionId], (error, result) => {
+    client.query('SELECT * FROM answers WHERE answer_id = $1 && question_id = $2',
+     [answerId, questionId], (error, result) => {
       done();
       if (error) {
         console.log(error);
@@ -91,7 +79,7 @@ exports.getAllReply = (req, res) => {
       res.status(200).json({ result: result.rows });
     });
   });
-};
+}; */
 
 exports.upVoteAnswer = (req, res) => {
   res.json({ message: 'up-vote an answer' });
@@ -99,4 +87,8 @@ exports.upVoteAnswer = (req, res) => {
 
 exports.downVoteAnswer = (req, res) => {
   res.json({ message: 'down-vote an answer' });
+};
+
+exports.acceptAnswer = (req, res) => {
+  res.json({ message: 'answer accepted' });
 };
