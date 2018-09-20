@@ -10,7 +10,8 @@
     "dev-start": "babel-watch index.js",
     "test": "mocha --recursive",
     "test-travis": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec --full-trace --trace ./test/controllers/*",
-    "migration": "node ./models/dbModel createTables"
+    "migration": "node ./models/dbModel createTables",
+    "seed": "node ./models/dbModel seed"
   },
   "engines": {
     "node": "8.11.3",
