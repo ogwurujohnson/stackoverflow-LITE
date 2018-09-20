@@ -39,10 +39,11 @@ exports.addUser = (req, res) => {
                 lastname: req.body.lastname,
                 email: req.body.email,
                 password: hash,
+                role: req.body.role,
               };
               // insert to db
-              const query = 'INSERT INTO users(firstname, lastname, email, password) VALUES($1, $2, $3, $4) RETURNING *';
-              const values = [data.firstname, data.lastname, data.email, data.password];
+              const query = 'INSERT INTO users(firstname, lastname, email, password, role) VALUES($1, $2, $3, $4, $5) RETURNING *';
+              const values = [data.firstname, data.lastname, data.email, data.password, data.role];
               client.query(query, values, (error, result) => {
                 done();
                 if (error) {

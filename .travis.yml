@@ -5,6 +5,7 @@ before_script:
   - psql -c 'create database travis;' -U postgres
 script: 
   - "npm run-script migration"
+  - "npm run-script seed"
   - "npm run-script test-travis"
  
   

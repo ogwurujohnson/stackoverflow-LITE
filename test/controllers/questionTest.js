@@ -112,7 +112,7 @@ describe('Questions', () => {
   
     it('should return status code 201', (done) => {
       chai.request(app)
-        .delete('/api/v1/questions/1')
+        .delete('/api/v1/questions/2')
         .set('Authorization', `Bearer ${userToken}`)
         .send(
           {
@@ -121,7 +121,7 @@ describe('Questions', () => {
         )
         .end((err, res) => {
           if (err) done(err);
-          res.should.have.status(200);
+          res.should.have.status(201);
           res.body.should.have.property('deletedQuestion');
           done();
         });
