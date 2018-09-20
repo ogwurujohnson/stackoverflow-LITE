@@ -1,6 +1,7 @@
 const pg = require('pg');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
+const bcrypt = require('bcrypt');
 
 dotenv.config();
 
@@ -29,13 +30,14 @@ pool.on('connect', () => {
   console.log('connected to the db');
 });
 
+
 /**
  * Create Tables
  */
 const createTables = () => {
   const userTable = `CREATE TABLE IF NOT EXISTS
       users(
-        user_id UUID PRIMARY KEY,
+        user_id SERIAL PRIMARY KEY,
         firstname VARCHAR(128) NOT NULL,
         lastname VARCHAR(128) NOT NULL,
         email VARCHAR(128) NOT NULL,
@@ -46,21 +48,21 @@ const createTables = () => {
       )`;
   const questionTable = `CREATE TABLE IF NOT EXISTS
       questions(
-        question_id UUID PRIMARY KEY,
+        question_id SERIAL PRIMARY KEY,
         question_title VARCHAR(128) NOT NULL,
         question_description VARCHAR(1500) NOT NULL,
         user_id INT NOT NULL
       )`;
   const answerTable = `CREATE TABLE IF NOT EXISTS
       answers(
-        answer_id UUID PRIMARY KEY,
+        answer_id SERIAL PRIMARY KEY,
         question_id INT NOT NULL,
         answer_description VARCHAR(1000) NOT NULL,
         user_id INT NOT Null
       )`;
   const replyTable = `CREATE TABLE IF NOT EXISTS
       replies(
-        reply_id UUID PRIMARY KEY,
+        reply_id SERIAL PRIMARY KEY,
         answer_id INT NOT NULL,
         user_id INT NOT NULL
       )`;
@@ -102,6 +104,76 @@ const createTables = () => {
     });
 };
 
+const seed = () => {
+  const userQuery = 'INSERT INTO users (firstname,lastname,email,password,role) VALUES ($1,$2,$3,$4,$5) RETURNING *';
+  
+  pool.connect((err, client, done) => {
+    client.query('SELECT * FROM users WHERE email = $1', ['test@gmail.com'], (error, result) => {
+      done();
+      if (result.rows >= '1') {
+        console.log('user exists');
+      } else {
+        bcrypt.hash('test', 10, (err, hash) => {
+          if (err) {
+            res.status(400).send(err);
+          } else {
+            pool.connect((err, client, done) => {
+              const userValues = ['john', 'doe', 'test@gmail.com', hash, 'admin'];
+              client.query(userQuery, userValues, (error, result) => {
+                if (error) {
+                  console.log(error);
+                } else {
+                  console.log('user added');
+                }
+                done();
+              });
+            });
+          }
+        });
+      }
+    });
+  });
+
+  const questionQuery = 'INSERT INTO questions (question_title,question_description,user_id) VALUES ($1,$2,$3) RETURNING *';
+  const questionValues = ['Example question', 'a long description of question', '1'];
+  pool.connect((err, client, done) => {
+    client.query(questionQuery, questionValues, (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Question added');
+      }
+      done();
+    });
+  });
+
+  const answerQuery = 'INSERT INTO answers (question_id,answer_description,user_id) VALUES ($1,$2,$3) RETURNING *';
+  const answerValues = ['1', 'a long answer desc', '1'];
+  pool.connect((err, client, done) => {
+    client.query(answerQuery, answerValues, (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Answer added');
+      }
+      done();
+    });
+  });
+
+  const replyQuery = 'INSERT INTO replies (answer_id,user_id) VALUES ($1,$2) RETURNING *';
+  const replyValues = ['1', '1'];
+  pool.connect((err, client, done) => {
+    client.query(replyQuery, replyValues, (error, result) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Replies added');
+      }
+      done();
+    });
+  });
+};
+
 /**
  * Drop Tables
  */
@@ -116,7 +188,7 @@ const dropTables = () => {
       console.log(err);
       pool.end();
     });
-}
+};
 
 pool.on('remove', () => {
   console.log('client removed');
@@ -127,6 +199,7 @@ module.exports = {
   createTables,
   dropTables,
   pool,
+  seed,
 };
 
 require('make-runnable');
