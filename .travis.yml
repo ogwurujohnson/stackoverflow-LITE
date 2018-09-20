@@ -4,8 +4,8 @@ node_js:
 before_script:
   - psql -c 'create database travis;' -U postgres
 script: 
-  - "npm run-script test-travis"
   - "npm run-script migration"
+  - "npm run-script test-travis"
  
   
 # send coverage data to coveralls
