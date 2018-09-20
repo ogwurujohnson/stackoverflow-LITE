@@ -30,8 +30,8 @@ router.put('/:q_id', checkAuth, questionController.editQuestion);
  */
 router.post('/:q_id/answers', checkAuth, answerController.postAnswer);
 
-router.put('/:q_id/answers/:a_id/edit', checkAuth, answerController.editAnswer);
-router.delete('/:q_id/answers/:a_id/delete', checkAuth, answerController.deleteAnswer);
+router.put('/:q_id/answers/:a_id', checkAuth, answerController.editAnswer);
+router.delete('/:q_id/answers/:a_id', checkAuth, answerController.deleteAnswer);
 
 /* router.post('/:q_id/answers/:a_id/reply', checkAuth, answerController.replyAnswer);
 router.get('/:q_id/answers/:a_id/reply', answerController.getAllReply); */
