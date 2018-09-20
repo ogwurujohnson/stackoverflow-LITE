@@ -6,7 +6,7 @@ let myDatabase;
 if (process.env.NODE_ENV === 'development') {
   myDatabase = process.env.DEVPOSTGRES_DB;
 } else if (process.env.NODE_ENV === 'test') {
-  myDatabase = process.env.TESTPOSTGRES_DB;
+  myDatabase = 'travis';
 } else if (process.env.NODE_ENV === 'production') {
   myDatabase = process.env.POSTGRES_DB;
 }
