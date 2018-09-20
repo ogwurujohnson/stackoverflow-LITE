@@ -7,7 +7,7 @@ require('dotenv').config();
 
 let secret;
 if (process.env.NODE_ENV === 'test') {
-  secret = 'oshe';
+  secret = 'test';
 } else {
   secret = process.env.JWT_SECRET_KEY;
 }
