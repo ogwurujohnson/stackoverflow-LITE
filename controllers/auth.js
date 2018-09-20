@@ -5,6 +5,13 @@ const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
+let secret;
+if (process.env.NODE_ENV === 'test') {
+  secret = 'oshe';
+} else {
+  secret = process.env.JWT_SECRET_KEY;
+}
+
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -82,7 +89,7 @@ exports.loginUser = (req, res) => {
               userId,
             },
             // above is the payload, below is your secret key
-            process.env.JWT_SECRET_KEY,
+            secret,
             {
               expiresIn: '24h',
             });
