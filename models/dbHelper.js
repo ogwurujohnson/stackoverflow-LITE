@@ -12,13 +12,21 @@ exports.getAll = (tableName, req, res) => {
       if (err) {
         res.status(400).json({ error });
       }
-      res.status(200).json({
-        status: 'success',
-        message: 'Resources fetched successfully',
-        data: result.rows,
-      });
+      if (result < '1') {
+        res.status(404).json({
+          status: 'failed',
+          message: 'Resource not found',
+        });
+      } else {
+        res.status(200).json({
+          status: 'success',
+          message: 'Resources fetched successfully',
+          data: result.rows,
+        });
+      }
     });
   });
+  return tableName;
 };
 
 exports.getSingleQuestion = (questionTable, answerTable, req, res, id) => {
