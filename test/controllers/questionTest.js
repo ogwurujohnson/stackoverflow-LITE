@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 const users = require('../testInfo'); // test users
 
 let userToken;
-let userrToken;
+
 
 describe('Questions', () => {
   describe('/GET questions', () => {
@@ -109,7 +109,6 @@ describe('Questions', () => {
           done();
         });
     });
-  
     it('should return status code 201', (done) => {
       chai.request(app)
         .delete('/api/v1/questions/6')

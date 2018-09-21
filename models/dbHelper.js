@@ -30,21 +30,28 @@ exports.getSingleQuestion = (questionTable, answerTable, req, res, id) => {
       if (error) {
         res.status(400).send({ error });
       }
-      const fetchedQuestion = result.rows[0].question_id;
-      const AnswerQuery = `SELECT * FROM ${answerTable} WHERE question_id = $1`;
-      const AnswerValue = fetchedQuestion;
-      client.query(AnswerQuery, [AnswerValue], (answerError, answers) => {
-        done();
-        if (answerError) {
-          res.status(400).send({ answerError });
-        }
-        res.status(200).json({
-          status: 'success',
-          message: 'question fetched successfully',
-          question: result.rows,
-          answers: answers.rows,
+      if (result.rows < '1') {
+        res.status(404).send({
+          status: 'failure',
+          message: 'question not found',
         });
-      });
+      } else {
+        const fetchedQuestion = result.rows[0].question_id;
+        const AnswerQuery = `SELECT * FROM ${answerTable} WHERE question_id = $1`;
+        const AnswerValue = fetchedQuestion;
+        client.query(AnswerQuery, [AnswerValue], (answerError, answers) => {
+          done();
+          if (answerError) {
+            res.status(400).send({ answerError });
+          }
+          res.status(200).json({
+            status: 'success',
+            message: 'question fetched successfully',
+            question: result.rows,
+            answers: answers.rows,
+          });
+        });
+      }
     });
   });
 };
@@ -58,11 +65,18 @@ exports.getSingle = (tableName, resourceId, resourceLocation, req, res) => {
       if (error) {
         res.status(400).send({ error });
       }
-      res.status(200).json({
-        status: 'success',
-        message: 'resource fetched successfully',
-        data: result.rows,
-      });
+      if (result.rows < '1') {
+        res.status(404).json({
+          status: 'failed',
+          message: 'Resource not found',
+        });
+      } else {
+        res.status(200).json({
+          status: 'success',
+          message: 'Resource fetched successfully',
+          data: result.rows,
+        });
+      }
     });
   });
 };
