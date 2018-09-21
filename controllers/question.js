@@ -1,15 +1,16 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../models/db');
-const { getAllQuestions, getSingleQuestion } = require('../models/dbHelper');
+const { getAll, getSingleQuestion } = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 exports.getAllQuestions = (req, res) => {
-  getAllQuestions('questions', req, res);
+  getAll('questions', req, res);
 };
+
 
 exports.getSingleQuestion = (req, res) => {
   const questionId = req.params.q_id;
