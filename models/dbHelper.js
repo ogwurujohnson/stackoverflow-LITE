@@ -1,6 +1,6 @@
 const pool = require('../models/db');
 
-exports.getAllQuestions = (tableName, req, res) => {
+exports.getAll = (tableName, req, res) => {
   pool.connect((err, client, done) => {
     if (err) {
       console.log(err);
@@ -14,8 +14,8 @@ exports.getAllQuestions = (tableName, req, res) => {
       }
       res.status(200).json({
         status: 'success',
-        message: 'questions fetched successfully',
-        questions: result.rows,
+        message: 'Resources fetched successfully',
+        data: result.rows,
       });
     });
   });
@@ -44,6 +44,24 @@ exports.getSingleQuestion = (questionTable, answerTable, req, res, id) => {
           question: result.rows,
           answers: answers.rows,
         });
+      });
+    });
+  });
+};
+
+exports.getSingle = (tableName, resourceId, resourceLocation, req, res) => {
+  const resourceValue = resourceId;
+  const resourceQuery = `SELECT * FROM ${tableName} WHERE ${resourceLocation} = $1 `;
+  pool.connect((err, client, done) => {
+    client.query(resourceQuery, [resourceValue], (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send({ error });
+      }
+      res.status(200).json({
+        status: 'success',
+        message: 'resource fetched successfully',
+        data: result.rows,
       });
     });
   });
