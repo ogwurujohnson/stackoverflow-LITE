@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const pool = require('../models/db');
-const { getSingle,getAll } = require('../models/dbHelper');
+
+const { getSingle, getAll } = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
@@ -22,25 +22,6 @@ exports.getUserDetails = (req, res) => {
 
 // users question controller
 exports.getUserQuestions = (req, res) => {
-  pool.connect((err, client, done) => {
-    if (err) {
-      console.log(`Can not connect to the DB  ${err}`);
-    }
-    console.log('connected to database');
-    const userId = req.params.u_id;
-    client.query('SELECT * FROM questions where user_id = $1', [userId], (error, result) => {
-      done();
-      if (err) {
-        console.log(error);
-        res.status(400).send(error);
-      }
-      res.status(200).json({
-        status: 'success',
-        message: 'user questions fetched successfully',
-        questions: result.rows,
-      });
-    });
-  });
+  const userId = req.params.u_id;
+  getSingle('questions', userId, 'user_id', req, res);
 };
-
-
