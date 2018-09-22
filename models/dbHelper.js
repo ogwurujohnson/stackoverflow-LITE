@@ -88,3 +88,17 @@ exports.getSingle = (tableName, resourceId, resourceLocation, req, res) => {
     });
   });
 };
+
+exports.editQuestion = (tableName, id, data, res) => {
+  const query = `UPDATE ${tableName} SET question_title=$2,question_description=$3 WHERE question_id = $1`;
+  const values = [id, data.title, data.description];
+  pool.connect((err, client, done) => {
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send(error);
+      }
+      res.status(201).json({ editedQuestion: data });
+    });
+  });
+};
