@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../models/db');
-const { getAll, getSingleQuestion } = require('../models/dbHelper');
+const { getAll, getSingleQuestion, editQuestion } = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,15 +24,7 @@ exports.editQuestion = (req, res) => {
     title: req.body.title,
     description: req.body.description,
   };
-  pool.connect((err, client, done) => {
-    client.query('UPDATE questions SET question_title=$2,question_description=$3 Where question_id = $1', [questionId, data.title, data.description], (error, result) => {
-      done();
-      if (error) {
-        res.status(400).send(error);
-      }
-      res.status(201).json({ editedQuestion: data });
-    });
-  });
+  editQuestion('questions', questionId, data, res);
 };
 
 
