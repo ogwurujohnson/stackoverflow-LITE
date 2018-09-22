@@ -34,8 +34,8 @@ describe('Questions', () => {
         .get('/api/v1/questions')
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('questions');
-          res.body.questions.should.be.a('array');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('array');
           done();
         });
     });
