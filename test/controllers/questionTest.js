@@ -120,7 +120,7 @@ describe('Questions', () => {
         .end((err, res) => {
           if (err) done(err);
           res.should.have.status(201);
-          res.body.should.have.property('deletedQuestion');
+          res.body.should.have.property('deletedResource');
           done();
         });
     });
