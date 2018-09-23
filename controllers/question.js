@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../models/db');
-const { getAll, getSingleQuestion, editQuestion } = require('../models/dbHelper');
+const { getAll, getSingle, editQuestion } = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,7 +14,7 @@ exports.getAllQuestions = (req, res) => {
 
 exports.getSingleQuestion = (req, res) => {
   const questionId = req.params.q_id;
-  getSingleQuestion('questions', 'answers', req, res, questionId);
+  getSingle('questions', 'answers', questionId, 'question_id', 'question_id', res);
 };
 
 
