@@ -4,7 +4,6 @@ process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-
 const app = require('../../index'); // Our app
 
 const should = chai.should();
@@ -58,10 +57,10 @@ describe('Questions', () => {
         .get('/api/v1/questions/1')
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('question');
-          res.body.should.have.property('answers');
-          res.body.question.should.be.a('array');
-          res.body.answers.should.be.a('array');
+          res.body.should.have.property('parentData');
+          res.body.should.have.property('childData');
+          res.body.parentData.should.be.a('array');
+          res.body.childData.should.be.a('array');
           done();
         });
     });
