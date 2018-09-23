@@ -64,25 +64,35 @@ exports.getSingleQuestion = (questionTable, answerTable, req, res, id) => {
   });
 };
 
-exports.getSingle = (tableName, resourceId, resourceLocation, req, res) => {
-  const resourceValue = resourceId;
-  const resourceQuery = `SELECT * FROM ${tableName} WHERE ${resourceLocation} = $1 `;
+exports.getSingle = (parentTable, childTable, parentResourceId, parentResourceLocation,
+  childResourceLocation, res) => {
+  const parentResourceValue = parentResourceId;
+  const parentResourceQuery = `SELECT * FROM ${parentTable} WHERE ${parentResourceLocation} = $1 `;
   pool.connect((err, client, done) => {
-    client.query(resourceQuery, [resourceValue], (error, result) => {
+    client.query(parentResourceQuery, [parentResourceValue], (error, result) => {
       done();
       if (error) {
         res.status(400).send({ error });
       }
       if (result.rows < '1') {
         res.status(404).json({
-          status: 'failed',
+          status: 'Failed',
           message: 'Resource not found',
         });
       } else {
-        res.status(200).json({
-          status: 'success',
-          message: 'Resource fetched successfully',
-          data: result.rows,
+        const childResourceValue = parentResourceId;
+        const childResourceQuery = `SELECT * FROM ${childTable} WHERE ${childResourceLocation} = $1`;
+        client.query(childResourceQuery, [childResourceValue], (childError, childResult) => {
+          done();
+          if (childError) {
+            res.status(400).send({ error });
+          }
+          res.status(200).json({
+            status: 'Success',
+            message: 'Resource fetched successfully',
+            parentData: result.rows,
+            childData: childResult.rows,
+          });
         });
       }
     });
