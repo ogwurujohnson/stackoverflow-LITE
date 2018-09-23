@@ -112,3 +112,17 @@ exports.editQuestion = (tableName, id, data, res) => {
     });
   });
 };
+
+exports.deleteResource = (tableName, resourceId, resourceLocation, res) => {
+  const query = `DELETE FROM ${tableName} WHERE ${resourceLocation} = $1`;
+  const values = [resourceId];
+  pool.connect((err, client, done) => {
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).json({ error });
+      }
+      res.status(201).json({ deletedResource: result });
+    });
+  });
+};
