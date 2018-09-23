@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../models/db');
-const { getAll, getSingle, editQuestion } = require('../models/dbHelper');
+const { getAll, getSingle, editQuestion, deleteResource } = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
@@ -31,21 +31,10 @@ exports.editQuestion = (req, res) => {
 // didn't work because of foreign key issues
 exports.deleteQuestion = (req, res) => {
   // DELETE FROM tbltravellers WHERE memo_serial='$pnr'
-  pool.connect((err, client, done) => {
-    const data = {
-      questionId: req.params.q_id,
-    };
-
-    const query = 'DELETE FROM questions WHERE question_id = $1 ';
-    const values = [data.questionId];
-    client.query(query, values, (error, result) => {
-      done();
-      if (error) {
-        res.status(400).json({ error });
-      }
-      res.status(201).json({ deletedQuestion: result });
-    });
-  });
+  const data = {
+    questionId: req.params.q_id,
+  };
+  deleteResource('questions', data.questionId, 'question_id', res);
 };
 
 exports.postQuestion = (req, res) => {
