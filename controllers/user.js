@@ -17,7 +17,7 @@ exports.getAllUsers = (req, res) => {
 
 exports.getUserDetails = (req, res) => {
   const userId = req.params.u_id;
-  getSingle('users', userId, 'user_id', req, res);
+  getSingle('users', 'questions', userId, 'user_id', 'user_id', res);
 };
 
 // users question controller
@@ -25,5 +25,3 @@ exports.getUserQuestions = (req, res) => {
   const userId = req.params.u_id;
   getSingle('questions', userId, 'user_id', req, res);
 };
-
-
