@@ -25,3 +25,8 @@ exports.getUserQuestions = (req, res) => {
   const userId = req.params.u_id;
   getSingle('questions', userId, 'user_id', req, res);
 };
+
+exports.getUserAnswers = (req, res) => {
+  const userId = req.params.u_id;
+  getSingle('answers', userId, 'user_id', res);
+};
