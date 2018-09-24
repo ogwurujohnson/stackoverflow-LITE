@@ -64,6 +64,24 @@ exports.getSingleQuestion = (questionTable, answerTable, req, res, id) => {
   });
 };
 
+exports.getExclusiveSingle = (tableName, resourceId, resourceLocation, res) => {
+  const query = `SELECT * FROM ${tableName} WHERE ${resourceLocation} = $1`;
+  const value = [resourceId];
+  pool.connect((err, client, done) => {
+    client.query(query, value, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send({ error });
+      }
+      res.status(200).json({
+        status: 'Success',
+        message: 'Resource fetched successfully',
+        data: result.rows,
+      });
+    });
+  });
+};
+
 exports.getSingle = (parentTable, childTable, parentResourceId, parentResourceLocation,
   childResourceLocation, res) => {
   const parentResourceValue = parentResourceId;
@@ -108,7 +126,11 @@ exports.editQuestion = (tableName, id, data, res) => {
       if (error) {
         res.status(400).send(error);
       }
-      res.status(201).json({ editedQuestion: data });
+      res.status(201).json({ 
+        status: 'Success',
+        message: 'Operation Successful',
+        editedQuestion: data,
+      });
     });
   });
 };
@@ -122,7 +144,67 @@ exports.deleteResource = (tableName, resourceId, resourceLocation, res) => {
       if (error) {
         res.status(400).json({ error });
       }
-      res.status(201).json({ deletedResource: result });
+      res.status(201).json({ 
+        status: 'Success',
+        message: 'Operation Successful',
+        deletedResource: result,
+      });
+    });
+  });
+};
+
+exports.postQuestion = (data, res) => {
+  const query = 'INSERT INTO questions(question_title,question_description,user_id) VALUES($1, $2, $3) RETURNING *';
+  const values = [data.title, data.description, data.userId];
+
+  pool.connect((err, client, done) => {
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send(error);
+      }
+      res.status(201).json({
+        status: 'Success',
+        message: 'Operation Successful',
+        newQuestion: data,
+      });
+    });
+  });
+};
+
+exports.postAnswer = (data, res) => {
+  const query = 'INSERT INTO answers(question_id,answer_description, user_id) VALUES($1,$2,$3) RETURNING *';
+  const values = [data.questionId, data.description, data.userId];
+  pool.connect((err, client, done) => {
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send(error);
+      }
+      res.status(201).json({
+        status: 'Success',
+        message: 'Operation Successful',
+        newAnswer: data,
+      });
+    });
+  });
+};
+
+exports.editAnswer = (data, resourceId, res) => {
+  const query = 'UPDATE answers SET answer_description=$2,user_id=$3 WHERE answer_id = $1';
+  const values = [resourceId, data.description, data.userId];
+
+  pool.connect((err, client, done) => {
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send(error);
+      }
+      res.status(201).json({
+        status: 'Success',
+        message: 'Operation Successful',
+        editedAnswer: data,
+      });
     });
   });
 };
