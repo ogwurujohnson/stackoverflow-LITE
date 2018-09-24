@@ -12,6 +12,7 @@ router.get('/:u_id', userController.getUserDetails);
 
 // users question routes
 router.get('/:u_id/questions', checkAuth, userController.getUserQuestions);
+router.get
 
 
 module.exports = router;
