@@ -76,4 +76,34 @@ describe('ANSWERS', () => {
         });
     });
   });
+
+  describe('/DELETE answers', () => {
+    before((done) => {
+      chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(users.patrick)
+        .end((err, res) => {
+          if (err) done(err);
+          userToken = res.body.token;
+          done();
+        });
+    });
+
+    it('should return status code 201', (done) => {
+      chai.request(app)
+        .delete('/api/v1/questions/1/answers/2')
+        .set('Authorization', `Bearer ${userToken}`)
+        .send(
+          {
+            answerid: 1,
+          },
+        )
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(201);
+          res.body.should.have.property('deletedResource');
+          done();
+        });
+    });
+  });
 });
