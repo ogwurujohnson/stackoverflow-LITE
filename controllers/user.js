@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { getSingle, getAll } = require('../models/dbHelper');
+const { getSingle, getAll, getExclusiveSingle } = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,10 +23,10 @@ exports.getUserDetails = (req, res) => {
 // users question controller
 exports.getUserQuestions = (req, res) => {
   const userId = req.params.u_id;
-  getSingle('questions', userId, 'user_id', req, res);
+  getExclusiveSingle('questions', userId, 'user_id', res);
 };
 
 exports.getUserAnswers = (req, res) => {
   const userId = req.params.u_id;
-  getSingle('answers', userId, 'user_id', res);
+  getExclusiveSingle('answers', userId, 'user_id', res);
 };
