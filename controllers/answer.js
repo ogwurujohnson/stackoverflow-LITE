@@ -1,26 +1,21 @@
-// const bodyParser = require('body-parser');
+const express = require('express');
+const bodyParser = require('body-parser');
 const pool = require('../models/db');
+const { deleteResource, postAnswer, editAnswer } = require('../models/dbHelper');
+
+const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 
 exports.postAnswer = (req, res) => {
-  pool.connect((err, client, done) => {
-    const data = {
-      questionId: req.params.q_id,
-      description: req.body.description,
-      userId: req.body.userId,
-    };
+  const data = {
+    questionId: req.params.q_id,
+    description: req.body.description,
+    userId: req.body.userId,
+  };
 
-    const query = 'INSERT INTO answers(question_id,answer_description, user_id) VALUES($1, $2, $3) RETURNING *';
-    const values = [data.questionId, data.description, data.userId];
-
-    client.query(query, values, (error, result) => {
-      done();
-      if (error) {
-        console.log(error);
-        res.status(400).send(error);
-      }
-      res.status(201).json();
-    });
-  });
+  postAnswer(data, res);
 };
 
 
@@ -30,56 +25,20 @@ exports.editAnswer = (req, res) => {
     description: req.body.description,
     userId: req.body.userId,
   };
-  pool.connect((err, client, done) => {
-    client.query('UPDATE answers SET answer_description=$2,user_id=$3 Where answer_id = $1', [answerId, data.description, data.userId], (error, result) => {
-      done();
-      if (error) {
-        console.log(error);
-        res.status(400).send(error);
-      }
-      res.status(201).json(data);
-    });
-  });
+  editAnswer(data, answerId, res);
 };
 
 exports.deleteAnswer = (req, res) => {
-  pool.connect((err, client, done) => {
-    const data = {
-      answerId: req.params.a_id,
-    };
-
-    const query = 'DELETE FROM answers WHERE answer_id = $1 ';
-    const values = [data.answerId];
-    client.query(query, values, (error, result) => {
-      done();
-      if (error) {
-        console.log(error);
-        res.status(400).send(error);
-      }
-      res.status(201).json(result);
-    });
-  });
+  const data = {
+    answerId: req.params.a_id,
+  };
+  deleteResource('answers', data.answerId, 'answer_id', res);
 };
 
-/* exports.replyAnswer = (req, res) => {
+exports.replyAnswer = (req, res) => {
   res.json({ message: 'reply to an answer' });
-}; */
+};
 
-/* exports.getAllReply = (req, res) => {
-  const answerId = req.params.a_id;
-  const questionId = req.params.q_id;
-  pool.connect((err, client, done) => {
-    client.query('SELECT * FROM answers WHERE answer_id = $1 && question_id = $2',
-     [answerId, questionId], (error, result) => {
-      done();
-      if (error) {
-        console.log(error);
-        res.status(400).send(error);
-      }
-      res.status(200).json({ result: result.rows });
-    });
-  });
-}; */
 
 exports.upVoteAnswer = (req, res) => {
   res.json({ message: 'up-vote an answer' });
