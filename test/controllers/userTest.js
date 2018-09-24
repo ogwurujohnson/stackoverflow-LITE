@@ -29,8 +29,8 @@ describe('USERS', () => {
         .get('/api/v1/users')
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('users');
-          res.body.users.should.be.a('array');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('array');
           done();
         });
     });
@@ -51,14 +51,12 @@ describe('USERS', () => {
         .get('/api/v1/users/1')
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('user');
-          res.body.should.have.property('questions');
-          res.body.user.should.be.a('array');
-          res.body.questions.should.be.a('array');
+          res.body.should.have.property('parentData');
+          res.body.should.have.property('childData');
+          res.body.parentData.should.be.a('array');
+          res.body.childData.should.be.a('array');
           done();
         });
     });
   });
-
-  
 });

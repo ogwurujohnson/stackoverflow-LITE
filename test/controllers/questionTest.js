@@ -4,7 +4,6 @@ process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-
 const app = require('../../index'); // Our app
 
 const should = chai.should();
@@ -14,7 +13,7 @@ chai.use(chaiHttp);
 const users = require('../testInfo'); // test users
 
 let userToken;
-let userrToken;
+
 
 describe('Questions', () => {
   describe('/GET questions', () => {
@@ -34,8 +33,8 @@ describe('Questions', () => {
         .get('/api/v1/questions')
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('questions');
-          res.body.questions.should.be.a('array');
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('array');
           done();
         });
     });
@@ -58,10 +57,10 @@ describe('Questions', () => {
         .get('/api/v1/questions/1')
         .end((err, res) => {
           if (err) done(err);
-          res.body.should.have.property('question');
-          res.body.should.have.property('answers');
-          res.body.question.should.be.a('array');
-          res.body.answers.should.be.a('array');
+          res.body.should.have.property('parentData');
+          res.body.should.have.property('childData');
+          res.body.parentData.should.be.a('array');
+          res.body.childData.should.be.a('array');
           done();
         });
     });
@@ -109,7 +108,6 @@ describe('Questions', () => {
           done();
         });
     });
-  
     it('should return status code 201', (done) => {
       chai.request(app)
         .delete('/api/v1/questions/6')
@@ -122,7 +120,7 @@ describe('Questions', () => {
         .end((err, res) => {
           if (err) done(err);
           res.should.have.status(201);
-          res.body.should.have.property('deletedQuestion');
+          res.body.should.have.property('deletedResource');
           done();
         });
     });
