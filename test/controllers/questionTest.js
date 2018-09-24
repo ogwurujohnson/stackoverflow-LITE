@@ -6,7 +6,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../index'); // Our app
 
-const should = chai.should();
+chai.should();
 
 chai.use(chaiHttp);
 
@@ -79,7 +79,7 @@ describe('Questions', () => {
     });
 
     it('should return status code 201', (done) => {
-      const body = {
+      const data = {
         title: 'Test Title',
         description: 'Test Description',
         userId: 1,
@@ -87,7 +87,7 @@ describe('Questions', () => {
       chai.request(app)
         .post('/api/v1/questions')
         .set('Authorization', `Bearer ${userToken}`)
-        .send(body)
+        .send(data)
         .end((err, res) => {
           if (err) done(err);
           res.should.have.status(201);
