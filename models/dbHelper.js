@@ -73,11 +73,18 @@ exports.getExclusiveSingle = (tableName, resourceId, resourceLocation, res) => {
       if (error) {
         res.status(400).send({ error });
       }
-      res.status(200).json({
-        status: 'Success',
-        message: 'Resource fetched successfully',
-        data: result.rows,
-      });
+      if (result.rows < '1') {
+        res.status(404).json({
+          status: 'Failed',
+          message: 'Resource not found',
+        });
+      } else {
+        res.status(200).json({
+          status: 'Success',
+          message: 'Resource fetched successfully',
+          data: result.rows,
+        });
+      }
     });
   });
 };
