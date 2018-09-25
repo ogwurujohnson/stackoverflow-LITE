@@ -99,6 +99,7 @@ exports.loginUser = (req, res) => {
             res.status(200).json({
               message: 'Authentication Successful',
               token,
+              userId,
               firstname,
               lastname,
               role,

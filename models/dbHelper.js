@@ -180,3 +180,91 @@ exports.editAnswer = (data, resourceId, res) => {
     });
   });
 };
+
+exports.upVote = (tableName, answerId, res) => {
+  const query = `SELECT * From ${tableName} WHERE answer_id = $1 `;
+  const values = [answerId];
+
+  pool.connect((err, client, done) => {
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send(error);
+      }
+      console.log(result.rows[0].upvote);
+      const vote = result.rows[0].upvote + 1;
+      const updateQuery = `UPDATE ${tableName} SET upvote=$1 where answer_id = $2`;
+      const updateValue = [vote, answerId];
+      client.query(updateQuery, updateValue, (upError, upResult) => {
+        if (upError) {
+          res.status(400).send(upError);
+        }
+        res.status(201).json({
+          status: 'Success',
+          message: 'Operation Successful',
+        });
+      });
+    });
+  });
+};
+
+exports.downVote = (tableName, answerId, res) => {
+  const query = `SELECT * From ${tableName} WHERE answer_id = $1 `;
+  const values = [answerId];
+
+  pool.connect((err, client, done) => {
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send(error);
+      }
+      console.log(result.rows[0].downvote);
+      const vote = result.rows[0].downvote + 1;
+      const updateQuery = `UPDATE ${tableName} SET downvote=$1 where answer_id = $2`;
+      const updateValue = [vote, answerId];
+      client.query(updateQuery, updateValue, (upError, upResult) => {
+        if (upError) {
+          res.status(400).send(upError);
+        }
+        res.status(201).json({
+          status: 'Success',
+          message: 'Operation Successful',
+        });
+      });
+    });
+  });
+};
+
+exports.acceptAnswer = (tableName, answerId, res) => {
+  const updateQuery = `UPDATE ${tableName} SET accepted=$1 where answer_id = $2`;
+  const updateValue = [1, answerId];
+  pool.connect((err, client, done) => {
+    client.query(updateQuery, updateValue, (upError, upResult) => {
+      if (upError) {
+        res.status(400).send(upError);
+      }
+      res.status(201).json({
+        status: 'Success',
+        message: 'Operation Successful',
+      });
+    });
+  });
+};
+
+exports.postReply = (data, res) => {
+  const query = 'INSERT INTO replies(answer_id,reply_description, user_id) VALUES($1,$2,$3) RETURNING *';
+  const values = [data.answerId, data.description, data.userId];
+  pool.connect((err, client, done) => {
+    client.query(query, values, (error, result) => {
+      done();
+      if (error) {
+        res.status(400).send(error);
+      }
+      res.status(201).json({
+        status: 'Success',
+        message: 'Comment Submitted',
+        newReply: data,
+      });
+    });
+  });
+};

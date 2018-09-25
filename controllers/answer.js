@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../models/db');
-const { deleteResource, postAnswer, editAnswer } = require('../models/dbHelper');
+const {
+  deleteResource, postAnswer, editAnswer, upVote, downVote, acceptAnswer, postReply,
+} = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
@@ -35,19 +37,32 @@ exports.deleteAnswer = (req, res) => {
   deleteResource('answers', data.answerId, 'answer_id', res);
 };
 
-exports.replyAnswer = (req, res) => {
-  res.json({ message: 'reply to an answer' });
-};
-
-
 exports.upVoteAnswer = (req, res) => {
-  res.json({ message: 'up-vote an answer' });
+  const data = {
+    answerId: req.params.a_id,
+  };
+  upVote('answers', data.answerId, res);
 };
 
 exports.downVoteAnswer = (req, res) => {
-  res.json({ message: 'down-vote an answer' });
+  const data = {
+    answerId: req.params.a_id,
+  };
+  downVote('answers', data.answerId, res);
 };
 
 exports.acceptAnswer = (req, res) => {
-  res.json({ message: 'answer accepted' });
+  const data = {
+    answerId: req.params.a_id,
+  };
+  acceptAnswer('answers', data.answerId, res);
+};
+
+exports.replyAnswer = (req, res) => {
+  const data = {
+    answerId: req.params.a_id,
+    userId: req.body.userId,
+    description: req.body.description,
+  };
+  postReply(data, res);
 };

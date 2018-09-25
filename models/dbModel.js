@@ -67,6 +67,7 @@ const createTables = () => {
       replies(
         reply_id SERIAL PRIMARY KEY,
         answer_id INT NOT NULL,
+        reply_description VARCHAR(1000) NOT NULL,
         user_id INT NOT NULL
       )`;
   pool.query(userTable)
@@ -163,8 +164,8 @@ const seed = () => {
     });
   });
 
-  const replyQuery = 'INSERT INTO replies (answer_id,user_id) VALUES ($1,$2) RETURNING *';
-  const replyValues = ['1', '1'];
+  const replyQuery = 'INSERT INTO replies (answer_id,reply_description,user_id) VALUES ($1,$2,$3) RETURNING *';
+  const replyValues = ['1', 'example reply description', '1'];
   pool.connect((err, client, done) => {
     client.query(replyQuery, replyValues, (error, result) => {
       if (error) {
