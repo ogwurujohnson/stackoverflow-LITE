@@ -81,6 +81,9 @@ exports.loginUser = (req, res) => {
         const hash = result.rows[0].password;
         const userEmail = result.rows[0].email;
         const userId = result.rows[0].user_id;
+        const { firstname } = result.rows[0];
+        const { lastname } = result.rows[0];
+        const { role } = result.rows[0];
         bcrypt.compare(password, hash, (err, result) => {
           if (result) {
             // create a jwt token using jwt.sign
@@ -93,7 +96,13 @@ exports.loginUser = (req, res) => {
             {
               expiresIn: '24h',
             });
-            res.status(200).json({ message: 'Authentication Successful', token });
+            res.status(200).json({ 
+              message: 'Authentication Successful',
+              token,
+              firstname,
+              lastname,
+              role,
+            });
           } else {
             res.status(401).json({ message: 'Authentication Failed' });
           }
