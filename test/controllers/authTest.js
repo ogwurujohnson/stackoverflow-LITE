@@ -52,5 +52,5 @@ describe('Authentication', () => {
           done();
         });
     });
-  }); 
+  });
 });

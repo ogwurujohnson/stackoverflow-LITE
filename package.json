@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint ./ --fix",
     "build": "rimraf dist/ && babel ./ -d dist/ --ignore node_modules --copy-files",
     "dev": "nodemon index.js",
     "start": "node index.js",

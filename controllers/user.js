@@ -1,7 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { getSingle, getAll, getExclusiveSingle, deleteAll } = require('../models/dbHelper');
+const {
+  getSingle, getAll, getExclusiveSingle, deleteAll,
+} = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
