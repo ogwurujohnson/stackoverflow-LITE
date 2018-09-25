@@ -7,6 +7,7 @@ const checkAuth = require('../middleware/verify_auth');
 /**
  * ?note: q_id = question_id,
  * ? a_id = answer_id
+ * ? u_id = user_id
  */
 
 /**
@@ -40,6 +41,7 @@ router.put('/:q_id/answers/:a_id/upvote', checkAuth, answerController.upVoteAnsw
 router.put('/:q_id/answers/:a_id/downvote', checkAuth, answerController.downVoteAnswer);
 
 router.put('/:q_id/answers/:a_id/accept', checkAuth, answerController.acceptAnswer);
+router.post('/:q_id/answers/:a_id/reply', checkAuth, answerController.replyAnswer);
 
 
 module.exports = router;
