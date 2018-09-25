@@ -32,4 +32,25 @@ describe('Authentication', () => {
         });
     });
   });
+
+  describe('/LOGIN', () => {
+    it('should retrun status 200', (done) => {
+      const data = {
+        email: 'test@gmail.com',
+        password: 'test',
+      };
+      chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(data)
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property('firstname');
+          res.body.should.have.property('lastname');
+          res.body.should.have.property('role');
+          done();
+        });
+    });
+  }); 
 });
