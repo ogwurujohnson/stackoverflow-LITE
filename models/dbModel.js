@@ -58,6 +58,9 @@ const createTables = () => {
         answer_id SERIAL PRIMARY KEY,
         question_id INT NOT NULL,
         answer_description VARCHAR(1000) NOT NULL,
+        upvote INT DEFAULT 0,
+        downvote INT DEFAULT 0,
+        accepted INT DEFAULT 0,
         user_id INT NOT Null
       )`;
   const replyTable = `CREATE TABLE IF NOT EXISTS
@@ -106,7 +109,7 @@ const createTables = () => {
 
 const seed = () => {
   const userQuery = 'INSERT INTO users (firstname,lastname,email,password,role) VALUES ($1,$2,$3,$4,$5) RETURNING *';
-  
+
   pool.connect((err, client, done) => {
     client.query('SELECT * FROM users WHERE email = $1', ['test@gmail.com'], (error, result) => {
       done();

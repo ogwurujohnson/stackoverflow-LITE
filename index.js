@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
+const cors = require('cors');
 
 
 const app = express();
@@ -56,12 +57,12 @@ app.use((err, req, res, next) => {
   });
 });
 
-/* app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:4200'); //* will allow from all cross domain
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); //* will allow from all cross domain
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   next();
-}); */
+});
 
 const port = process.env.port || 3000;
 

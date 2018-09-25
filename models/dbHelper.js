@@ -98,7 +98,7 @@ exports.editQuestion = (tableName, id, data, res) => {
       if (error) {
         res.status(400).send(error);
       }
-      res.status(201).json({ 
+      res.status(201).json({
         status: 'Success',
         message: 'Operation Successful',
         editedQuestion: data,
@@ -116,7 +116,7 @@ exports.deleteResource = (tableName, resourceId, resourceLocation, res) => {
       if (error) {
         res.status(400).json({ error });
       }
-      res.status(201).json({ 
+      res.status(201).json({
         status: 'Success',
         message: 'Operation Successful',
         deletedResource: result,
