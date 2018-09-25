@@ -82,4 +82,27 @@ describe('USERS', () => {
         });
     });
   });
+
+  describe('GET api/v1/users/:u_id/answers', () => {
+    it('should return response status 200', (done) => {
+      chai.request(app)
+        .get('/api/v1/users/1/answers')
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(200);
+          res.should.be.a('object');
+          done();
+        });
+    });
+    it('it should return answers made by user', (done) => {
+      chai.request(app)
+        .get('/api/v1/users/1/answers')
+        .end((err, res) => {
+          if (err) done(err);
+          res.body.should.have.property('data');
+          res.body.data.should.be.a('array');
+          done();
+        });
+    });
+  });
 });

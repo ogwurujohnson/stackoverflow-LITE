@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const { getSingle, getAll, getExclusiveSingle } = require('../models/dbHelper');
+const { getSingle, getAll, getExclusiveSingle, deleteAll } = require('../models/dbHelper');
 
 const app = express();
 app.use(bodyParser.json());
@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 exports.getAllUsers = (req, res) => {
   getAll('users', req, res);
 };
+
 
 exports.getUserDetails = (req, res) => {
   const userId = req.params.u_id;

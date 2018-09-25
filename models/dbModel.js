@@ -178,8 +178,39 @@ const seed = () => {
  * Drop Tables
  */
 const dropTables = () => {
-  const queryText = 'DROP TABLE IF EXISTS reflections';
-  pool.query(queryText)
+  const dropUser = 'DROP TABLE IF EXISTS users';
+  const dropQuestion = 'DROP TABLE IF EXISTS questions';
+  const dropAnswer = 'DROP TABLE IF EXISTS answers';
+  const dropReply = 'DROP TABLE IF EXISTS replies';
+
+  pool.query(dropUser)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+  pool.query(dropQuestion)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+  pool.query(dropAnswer)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+  pool.query(dropReply)
     .then((res) => {
       console.log(res);
       pool.end();
