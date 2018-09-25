@@ -14,7 +14,7 @@ describe('Authentication', () => {
   describe('/SIGNUP', () => {
     before((done) => {
       // implement delete user here so test can pass
-    })
+    });
     it('should return status 200', (done) => {
       const data = {
         firstname: 'test',
