@@ -4,7 +4,7 @@ process.env.NODE_ENV = 'test';
 
 const chai = require('chai');
 
-chai.should();
+const should = chai.should();
 
 chai.use(require('chai-http'));
 
@@ -20,7 +20,7 @@ describe('USERS', () => {
         .get('/api/v1/users')
         .end((err, res) => {
           if (err) done(err);
-          res.should.has.status(200);
+          res.should.have.status(200);
           res.should.be.a('object');
           done();
         });
