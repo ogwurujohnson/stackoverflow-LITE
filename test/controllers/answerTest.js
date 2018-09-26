@@ -6,7 +6,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const app = require('../../index'); // our app
 
-chai.should();
+const should = chai.should();
 
 chai.use(chaiHttp);
 
@@ -100,7 +100,7 @@ describe('ANSWERS', () => {
         });
     });
 
-    it('should return status code 201 for answer acceptance', (done) => {
+    /* it('should return status code 201 for answer acceptance', (done) => {
       chai.request(app)
         .put('/api/v1/questions/1/answers/1/accept')
         .set('Authorization', `Bearer ${userToken}`)
@@ -110,7 +110,7 @@ describe('ANSWERS', () => {
           res.body.should.have.property('message');
           done();
         });
-    });
+    }); */
   });
 
   describe('/DELETE answers', () => {
@@ -142,37 +142,38 @@ describe('ANSWERS', () => {
         });
     });
   });
-});
 
-describe('/POST replies', () => {
-  before((done) => {
-    chai.request(app)
-      .post('/api/v1/auth/login')
-      .send(users.patrick)
-      .end((err, res) => {
-        if (err) done(err);
-        userToken = res.body.token;
-        done();
-      });
+  describe('/POST replies', () => {
+    before((done) => {
+      chai.request(app)
+        .post('/api/v1/auth/login')
+        .send(users.patrick)
+        .end((err, res) => {
+          if (err) done(err);
+          userToken = res.body.token;
+          done();
+        });
+    });
+  
+    it('should return status code 201', (done) => {
+      chai.request(app)
+        .post('/api/v1/questions/1/answers/1/reply')
+        .set('Authorization', `Bearer ${userToken}`)
+        .send(
+          {
+            answerid: 1,
+            userId: 1,
+            description: 'test suite reply'
+          },
+        )
+        .end((err, res) => {
+          if (err) done(err);
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          res.body.should.have.property('newReply');
+          done();
+        });
+    });
   });
+}); 
 
-  it('should return status code 201', (done) => {
-    chai.request(app)
-      .post('/api/v1/questions/1/answers/1/reply')
-      .set('Authorization', `Bearer ${userToken}`)
-      .send(
-        {
-          answerid: 1,
-          userId: 1,
-          description: "test suite reply"
-        },
-      )
-      .end((err, res) => {
-        if (err) done(err);
-        res.should.have.status(201);
-        res.body.should.be.a('object');
-        res.body.should.have.property('newReply');
-        done();
-      });
-  });
-});
