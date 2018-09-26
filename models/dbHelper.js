@@ -235,7 +235,7 @@ exports.downVote = (tableName, answerId, res) => {
   });
 };
 
-exports.acceptAnswer = (tableName, answerId, res) => {
+exports.accepter = (tableName, answerId, res) => {
   const updateQuery = `UPDATE ${tableName} SET accepted=$1 where answer_id = $2`;
   const updateValue = [1, answerId];
   pool.connect((err, client, done) => {
