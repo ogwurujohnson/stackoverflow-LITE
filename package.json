@@ -14,7 +14,7 @@
     "migration": "node ./models/dbModel dropTables && node ./models/dbModel createTables && node ./models/dbModel seed"
   },
   "engines": {
-    "node": "10.8.0",
+    "node": "8.11.3",
     "npm": "6.1.0"
   },
   "author": "ogwurujohnson",
