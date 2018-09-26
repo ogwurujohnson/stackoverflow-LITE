@@ -34,14 +34,11 @@ router.post('/:q_id/answers', checkAuth, answerController.postAnswer);
 router.put('/:q_id/answers/:a_id', checkAuth, answerController.editAnswer);
 router.delete('/:q_id/answers/:a_id', checkAuth, answerController.deleteAnswer);
 
-/* router.post('/:q_id/answers/:a_id/reply', checkAuth, answerController.replyAnswer);
-router.get('/:q_id/answers/:a_id/reply', answerController.getAllReply); */
-
 router.put('/:q_id/answers/:a_id/upvote', checkAuth, answerController.upVoteAnswer);
 router.put('/:q_id/answers/:a_id/downvote', checkAuth, answerController.downVoteAnswer);
 
-router.put('/:q_id/answers/:a_id/accept', checkAuth, answerController.acceptAnswer);
-router.post('/:q_id/answers/:a_id/reply', checkAuth, answerController.replyAnswer);
+// router.put('/:q_id/answers/:a_id/accept', checkAuth, answerController.acceptAnswer);
+router.post('/:q_id/answers/:a_id/reply', checkAuth, answerController.replyAnswer); 
 
 
 module.exports = router;
