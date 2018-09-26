@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const pool = require('../models/db');
 const {
-  deleteResource, postAnswer, editAnswer, upVote, downVote, acceptAnswer, postReply,
+  deleteResource, postAnswer, editAnswer, upVote, downVote, accepter, postReply,
 } = require('../models/dbHelper');
 
 const app = express();
@@ -49,14 +49,14 @@ exports.downVoteAnswer = (req, res) => {
     answerId: req.params.a_id,
   };
   downVote('answers', data.answerId, res);
-};
+}; 
 
-exports.acceptAnswer = (req, res) => {
+/* exports.acceptAnswer = (req, res) => {
   const data = {
     answerId: req.params.a_id,
   };
-  acceptAnswer('answers', data.answerId, res);
-};
+  accepter('answers', data.answerId, res);
+}; */
 
 exports.replyAnswer = (req, res) => {
   const data = {
