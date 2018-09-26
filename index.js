@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get('/api/v1', (req, res) => {
-  res.send('Welcome Boy');
+  res.send('Welcome to the stackoverflow-lite API');
 });
 
 app.use('/api/v1/questions', questionRouter);
