@@ -28,7 +28,10 @@ exports.addUser = (req, res) => {
       done();
       // if user email exists display message
       if (result.rows >= '1') {
-        res.status(409).json({ message: 'user already exists' });
+        res.status(409).json({
+          status: 'Failed',
+          message: 'conflict: User already exists',
+        });
       } else { // if users email doesn't exist go ahead and do insertion
         const { password } = req.body;
         // hash and salt password
@@ -57,7 +60,10 @@ exports.addUser = (req, res) => {
                   console.log(error);
                   res.status(400).send(error);
                 }
-                res.status(200).json(data);
+                res.status(200).json({
+                  status: 'Success',
+                  message: 'Account Created Successfully',
+                });
               });
             });
           }
@@ -90,9 +96,10 @@ exports.loginUser = (req, res) => {
             const data = {
               userEmail,
               userId,
-            }
-            jwt.sign({ data: data }, secret, { expiresIn: '24h' }, (err, token) => {
+            };
+            jwt.sign({ data }, secret, { expiresIn: '24h' }, (err, token) => {
               res.status(200).json({
+                status: 'Success',
                 message: 'Authentication Successful',
                 token,
                 userId,
@@ -102,7 +109,10 @@ exports.loginUser = (req, res) => {
               });
             });
           } else {
-            res.status(401).json({ message: 'Authentication Failed' });
+            res.status(401).json({
+              status: 'Failed',
+              message: 'Email or Password Incorrect',
+            });
           }
         });
       }
