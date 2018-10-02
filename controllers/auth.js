@@ -60,9 +60,16 @@ exports.addUser = (req, res) => {
                   console.log(error);
                   res.status(400).send(error);
                 }
-                res.status(200).json({
-                  status: 'Success',
-                  message: 'Account Created Successfully',
+                const userId = result.rows[0].user_id;
+                const tokenData = { email, userId };
+                // generating token for user on signup so they dont have to be redirected to the login page but rather continue, but then need to verify their mail
+                jwt.sign({ data: tokenData }, secret, { expiresIn: '24h' }, (jwtErr, token) => {
+                  res.status(200).json({
+                    status: 'Success',
+                    message: 'Account Created Successfully',
+                    result: result.rows[0],
+                    token,
+                  });
                 });
               });
             });
